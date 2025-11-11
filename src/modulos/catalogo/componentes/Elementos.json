@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "img": "https://cabezademartillo.cl/3635-special_default/poleras-estampadas-serigrafia.jpg",
+    "precio": "$10.000"
+  },
+  {
+    "id": 2,
+    "img": "https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920",
+    "precio": "$15.000"
+  },
+  {
+    "id": 3,
+    "img": "https://cycorecords.cl/cdn/shop/files/seri-117c24a4-ba03-4852-adfb-29d77c90b6cc_218688ef-c10e-49db-ba29-c12f2f128d11.jpg?v=1729449869&width=1214",
+    "precio": "$12.000"
+  },
+  {
+    "id": 4,
+    "img": "https://http2.mlstatic.com/D_NQ_NP_610654-MLC83310622251_032025-O.webp",
+    "precio": "$20.000"
+  },
+  {
+    "id": 5,
+    "img": "https://http2.mlstatic.com/D_NQ_NP_735082-MLC88246712304_072025-O-gustavo-cerati-persiana-americana-polera-serigrafia.webp",
+    "precio": "$18.000"
+  },
+  {
+    "id": 6,
+    "img": "https://http2.mlstatic.com/D_NQ_NP_826481-MLC82057699884_022025-O-polera-pink-floyd-dark-side-of-the-moon-serigrafia-doble.webp",
+    "precio": "$22.000"
+  },
+  {
+    "id": 7,
+    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
+    "precio": "$25.000"
+  },
+  {
+    "id": 8,
+    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
+    "precio": "$30.000"
+  },
+  {
+    "id": 9,
+    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
+    "precio": "$35.000"
+  },
+  {
+    "id": 10,
+    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
+    "precio": "$40.000"
+  },
+  {
+    "id": 11,
+    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
+    "precio": "$45.000"
+  },
+  {
+    "id": 12,
+    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
+    "precio": "$50.000"
+  },
+  {
+    "id": 13,
+    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
+    "precio": "$50.000"
+  }
+]

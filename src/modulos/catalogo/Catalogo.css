@@ -1,32 +1,41 @@
-body {
+/* 🔹 Reset global y ajuste para evitar scroll */
+* {
   margin: 0;
-}
-.catalogo-container {
-  border: 1px solid green;
-  background-color: #eeeeee;
-  width: 99.8vw;
-  height: 99.8vh;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.menu-container {
-  height: 70%;
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* ✅ elimina el scroll */
+  background-color: #eeeeee;
+}
+
+/* 🔹 Contenedor principal */
+.catalogo-container {
+  background-color: #eeeeee;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 .bloque-1 {
-  border: 1px solid red;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 .bloque-2 {
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 0px !important;
 }
 .bloque-3 {
-  border: 1px solid red;
   background-color: blue;
+  padding: 30px;
 }
 
 .navbar-container {
@@ -61,9 +70,12 @@ body {
   width: 400px;
 }
 @media (max-width: 768px) {
+  .bloque-1 {
+    height: 40%;
+    margin-top: 40px !important;
+  }
   .bloque-2 {
     flex-direction: row;
-    height: 20%;
   }
   .menu-boton {
     color: rgb(255, 255, 255);

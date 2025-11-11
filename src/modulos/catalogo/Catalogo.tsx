@@ -1,5 +1,6 @@
 import "./Catalogo.css";
 import logo from "../../assets/logo.png";
+import Carrusel from "./componentes/Carrusel";
 function Catalogo() {
   return (
     <>
@@ -19,7 +20,9 @@ function Catalogo() {
             <button className="menu-boton boton-desactivado">Polerones</button>
             <button className="menu-boton boton-desactivado">Visor</button>
           </div>
-          <div className="bloque-3 col-12 col-sm-10 "> bloque 3</div>
+          <div className="bloque-3 col-12 col-sm-10 ">
+            <Carrusel />
+          </div>
         </div>
       </div>
     </>
