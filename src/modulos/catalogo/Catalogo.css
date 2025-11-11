@@ -1,0 +1,80 @@
+body {
+  margin: 0;
+}
+.catalogo-container {
+  border: 1px solid green;
+  background-color: #eeeeee;
+  width: 99.8vw;
+  height: 99.8vh;
+}
+
+.menu-container {
+  height: 70%;
+}
+.bloque-1 {
+  border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.bloque-2 {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px !important;
+}
+.bloque-3 {
+  border: 1px solid red;
+  background-color: blue;
+}
+
+.navbar-container {
+  height: 20%;
+}
+.carrusel {
+  width: 100%;
+}
+
+.menu-boton {
+  color: white;
+  width: 200px;
+  height: 100px;
+  background-color: blue;
+  border: none;
+  margin-left: auto;
+}
+
+.boton-carrito {
+  color: white;
+  width: 150px;
+  height: 50px;
+  background-color: rgb(255, 123, 0);
+  border: none;
+}
+
+.boton-desactivado {
+  background-color: grey;
+  cursor: auto !important;
+}
+.logo {
+  width: 400px;
+}
+@media (max-width: 768px) {
+  .bloque-2 {
+    flex-direction: row;
+    height: 20%;
+  }
+  .menu-boton {
+    color: rgb(255, 255, 255);
+    width: 100px;
+    height: 50px;
+    margin: 0px;
+  }
+  .boton-desactivado {
+    background-color: grey;
+  }
+  .logo {
+    width: 300px;
+  }
+}
