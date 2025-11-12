@@ -12,6 +12,13 @@ interface Producto {
 const productosData: Producto[] = Elementos;
 
 function Carrusel() {
+  const [isFirstRender, setIsFirstRender] = useState(true);
+
+  useEffect(() => {
+    // Después del primer render, marcamos como "ya montado"
+    setIsFirstRender(false);
+  }, []);
+
   useEffect(() => {
     // 🚫 Bloquear click derecho (desktop)
     const handleContextMenu = (e: MouseEvent) => e.preventDefault();
@@ -111,7 +118,7 @@ function Carrusel() {
             key={paginaActual}
             custom={direccion}
             variants={variants}
-            initial="enter"
+            initial={isFirstRender ? false : "enter"} // 👈 sin animación en el primer render
             animate="center"
             exit="exit"
             className="grid-cards"
@@ -235,8 +242,32 @@ function Carrusel() {
           </div>
         </div>
       </div>
-      <div className="zona-tactil derecha" onClick={siguiente}></div>
-      <div className="zona-tactil izquierda" onClick={anterior}></div>
+      <div
+        className="zona-tactil derecha"
+        onTouchStart={() => {
+          const flecha = document.querySelector(".flecha.derecha");
+          flecha?.classList.add("activa");
+        }}
+        onTouchEnd={() => {
+          const flecha = document.querySelector(".flecha.derecha");
+          flecha?.classList.remove("activa");
+          siguiente(); // tu función para avanzar
+        }}
+      ></div>
+
+      <div
+        className="zona-tactil izquierda"
+        onTouchStart={() => {
+          const flecha = document.querySelector(".flecha.izquierda");
+          flecha?.classList.add("activa");
+        }}
+        onTouchEnd={() => {
+          const flecha = document.querySelector(".flecha.izquierda");
+          flecha?.classList.remove("activa");
+          anterior(); // tu función para retroceder
+        }}
+      ></div>
+
       <div className="paginacion prosto-one-regular">
         {paginaActual} / {totalPaginas}
       </div>

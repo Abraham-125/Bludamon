@@ -91,6 +91,10 @@
 .flecha:active {
   transform: translateY(-50%) scale(1.4);
 }
+.flecha.activa {
+  transform: translateY(-50%) scale(1.4);
+  transition: transform 0.2s ease;
+}
 
 /* Flecha izquierda */
 .flecha.izquierda {
@@ -230,9 +234,9 @@ body {
 @media (max-width: 768px) {
   .zona-tactil {
     position: absolute;
-    top: 100px;
-    width: 33%; /* ancho sensible, puedes ajustar a gusto */
-    height: 33%;
+    top: 140px;
+    width: 25%; /* ancho sensible, puedes ajustar a gusto */
+    height: 25%;
     z-index: 5;
     background: transparent; /* invisible */
   }
