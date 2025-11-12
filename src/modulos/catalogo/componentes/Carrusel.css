@@ -216,3 +216,28 @@ body {
     padding: 20px;
   }
 }
+
+/* 📱 Zonas invisibles táctiles (solo móviles) */
+@media (max-width: 768px) {
+  .zona-tactil {
+    position: absolute;
+    top: 100px;
+    width: 33%; /* ancho sensible, puedes ajustar a gusto */
+    height: 33%;
+    z-index: 5;
+    background: transparent; /* invisible */
+  }
+
+  .zona-tactil.derecha {
+    right: -40px;
+  }
+
+  .zona-tactil.izquierda {
+    left: -40px;
+  }
+
+  /* Evita que el usuario seleccione o arrastre por error */
+  .zona-tactil:active {
+    background: rgba(255, 115, 0, 0.05); /* sutil feedback visual (opcional) */
+  }
+}

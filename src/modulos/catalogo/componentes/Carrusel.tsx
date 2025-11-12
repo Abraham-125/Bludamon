@@ -186,6 +186,9 @@ function Carrusel() {
       <div className="paginacion prosto-one-regular">
         {paginaActual} / {totalPaginas}
       </div>
+
+      <div className="zona-tactil derecha" onClick={siguiente}></div>
+      <div className="zona-tactil izquierda" onClick={anterior}></div>
     </div>
   );
 }
