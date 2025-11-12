@@ -11,6 +11,14 @@
   /* ✅ Fijar altura consistente */
   min-height: 450px; /* ajusta según tu diseño */
   max-height: 450px; /* ajusta según tu diseño */
+  z-index: auto !important;
+}
+.modal {
+  z-index: 2000 !important;
+}
+
+.modal-backdrop {
+  z-index: 1990 !important;
 }
 
 /* Contenedor de los productos */
@@ -46,17 +54,23 @@
   scale: 0.9 !important;
   max-width: 180px;
   max-height: 210px !important;
-  transition: box-shadow 0.3s ease;
+  transition: scale 0.3s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
-  box-shadow: 0px 0px 1px 6px rgb(255, 115, 0) !important;
+  box-shadow: 0px 0px 0px 6px rgb(255, 102, 0);
 }
-
+.card:active {
+  scale: 0.8 !important;
+}
 .card-img {
   border-radius: 0px !important;
   object-fit: contain;
   margin-bottom: 6px;
+}
+.card-precio {
+  font-size: 18px;
+  font-weight: light;
 }
 
 /* Flechas de navegación */
@@ -75,8 +89,7 @@
 }
 
 .flecha:active {
-  transform: translateY(-50%) scale(2);
-  filter: brightness(1.3);
+  transform: translateY(-50%) scale(1.4);
 }
 
 /* Flecha izquierda */
@@ -162,5 +175,44 @@
     right: 10px; /* más cerca del borde en pantallas pequeñas */
     font-size: 0.85rem;
     padding: 4px 8px;
+  }
+}
+
+/* 🚫 Bloquear selección de texto, arrastre y presionar prolongado */
+* {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+
+  -webkit-touch-callout: none !important; /* evita menú de mantener presionado */
+  -webkit-user-drag: none !important; /* evita arrastrar imágenes */
+}
+
+/* 🚫 Bloquear zoom en iOS Safari */
+html,
+body {
+  touch-action: manipulation; /* bloquea zoom doble tap */
+  overflow-x: hidden;
+}
+
+/* 🧭 Bloquear rotación horizontal (opcional: sólo avisa o fija en vertical) */
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+  body::before {
+    content: "Por favor, gira tu dispositivo a modo vertical 📱";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    color: white;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    text-align: center;
+    padding: 20px;
   }
 }

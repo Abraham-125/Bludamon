@@ -12,6 +12,31 @@ interface Producto {
 const productosData: Producto[] = Elementos;
 
 function Carrusel() {
+  useEffect(() => {
+    // 🚫 Bloquear click derecho (desktop)
+    const handleContextMenu = (e: MouseEvent) => e.preventDefault();
+    document.addEventListener("contextmenu", handleContextMenu);
+
+    // 🚫 Bloquear selección y "mantener presionado" (mobile)
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length > 1) {
+        e.preventDefault(); // evita zoom con dos dedos
+      }
+    };
+
+    const handleGestureStart = (e: Event) => e.preventDefault();
+
+    document.addEventListener("touchstart", handleTouchStart, {
+      passive: false,
+    });
+    document.addEventListener("gesturestart", handleGestureStart);
+
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+      document.removeEventListener("touchstart", handleTouchStart);
+      document.removeEventListener("gesturestart", handleGestureStart);
+    };
+  }, []);
   const [paginaActual, setPaginaActual] = useState(1);
   const [productosPorPagina, setProductosPorPagina] = useState(6);
   const [direccion, setDireccion] = useState<"next" | "prev">("next");
@@ -95,15 +120,18 @@ function Carrusel() {
               <motion.button
                 key={producto.id}
                 className="card"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
               >
                 <img
                   src={producto.img}
                   alt={`Producto ${producto.id}`}
                   className="card-img"
                 />
-                <h4 className="card-precio">{producto.precio}</h4>
+                <h4 className="card-precio prosto-one-regular">
+                  {producto.precio}
+                </h4>
               </motion.button>
             ))}
           </motion.div>
@@ -118,7 +146,44 @@ function Carrusel() {
         disabled={paginaActual === totalPaginas}
       ></button>
 
-      <div className="paginacion">
+      <div
+        className="modal fade"
+        id="exampleModal"
+        tabIndex={1}
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">
+                Modal title
+              </h1>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">...</div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" className="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="paginacion prosto-one-regular">
         {paginaActual} / {totalPaginas}
       </div>
     </div>
