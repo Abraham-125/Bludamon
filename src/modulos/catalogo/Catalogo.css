@@ -12,7 +12,13 @@ body {
   overflow: hidden; /* ✅ elimina el scroll */
   background-color: #eeeeee;
 }
-
+.boton-poleras {
+  border-left: 10px solid rgb(255, 115, 0) !important;
+}
+.menu-container {
+  display: flex;
+  justify-content: center;
+}
 /* 🔹 Contenedor principal */
 .catalogo-container {
   background-color: #eeeeee;
@@ -22,6 +28,8 @@ body {
   flex-direction: column;
 }
 .bloque-1 {
+  margin-left: 230px;
+  max-width: 73.5% !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,6 +44,7 @@ body {
 .bloque-3 {
   background-color: blue;
   padding: 30px;
+  max-width: 300px;
 }
 
 .navbar-container {
@@ -71,6 +80,8 @@ body {
 }
 @media (max-width: 768px) {
   .bloque-1 {
+    margin-left: 0px;
+    max-width: 100% !important;
     height: 40%;
     margin-top: 40px !important;
   }
@@ -88,5 +99,8 @@ body {
   }
   .logo {
     width: 300px;
+  }
+  .boton-poleras {
+    border-top: 6px solid rgb(255, 115, 0) !important;
   }
 }

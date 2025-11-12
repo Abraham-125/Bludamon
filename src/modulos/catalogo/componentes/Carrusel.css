@@ -2,9 +2,8 @@
   width: 90%;
   position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background-color: #d5d4f6;
+  background-color: #eeeeee;
   overflow: visible;
   z-index: 1;
   margin: auto;
@@ -22,29 +21,42 @@
   width: 80%;
   justify-items: center;
   align-items: start;
+  position: relative;
+  overflow: hidden;
 
   /* ✅ Mantener tamaño constante del grid */
   min-height: 350px; /* asegura altura igual en todas las páginas */
 }
-
+.grid-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  position: absolute;
+  width: 100%;
+}
 /* Cada card de producto */
 .card {
   border-radius: 0px !important;
-  background: white;
+  background-color: #ffffff !important;
+  color: rgb(0, 0, 0) !important;
   padding: 12px;
   text-align: center;
   width: 100%;
   scale: 0.9 !important;
-  max-width: 220px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-  /* ✅ Mantener lugar cuando faltan elementos */
-  min-height: 250px;
+  max-width: 180px;
+  max-height: 210px !important;
+  transition: box-shadow 0.3s ease;
 }
 
 .card:hover {
-  transform: scale(0.95);
-  box-shadow: 0px 0px 1px 5px rgb(255, 115, 0);
+  box-shadow: 0px 0px 1px 6px rgb(255, 115, 0) !important;
+}
+
+.card-img {
+  border-radius: 0px !important;
+  object-fit: contain;
+  margin-bottom: 6px;
 }
 
 /* Flechas de navegación */
@@ -58,8 +70,13 @@
   border: none;
   cursor: pointer;
   z-index: 10;
-  scale: 1.5;
+  scale: 2;
   transition: transform 0.2s ease;
+}
+
+.flecha:active {
+  transform: translateY(-50%) scale(2);
+  filter: brightness(1.3);
 }
 
 /* Flecha izquierda */
@@ -78,10 +95,9 @@
   border-left: 20px solid rgb(255, 115, 0);
 }
 .flecha.desactivada {
-  opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
-  filter: grayscale(100%) brightness(0.7);
+  filter: grayscale(100%) brightness(1.2);
 }
 .paginacion {
   position: absolute;
@@ -91,8 +107,6 @@
   font-weight: 500;
   color: #333;
   padding: 6px 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 /* 📱 Responsivo: en pantallas pequeñas, 2 columnas x 3 filas */
 @media (max-width: 768px) {
@@ -121,29 +135,30 @@
 /* 📱 Extra pequeño (móviles muy chicos) */
 @media (max-width: 480px) {
   .card {
-    max-width: 150px;
-    min-height: 200px;
+    max-width: 160px;
+    min-height: 150px !important;
   }
 
   .card-img {
-    height: 140px;
+    height: 130px;
+    margin-bottom: 15px;
   }
 
   .carrusel-contenido {
-    gap: 12px;
-    min-height: 380px;
+    gap: 0px;
   }
 
   /* ✅ Aún más cerca los botones */
+  /* ✅ Aún más cerca los botones */
   .flecha.izquierda {
-    left: 0px;
+    left: -12px;
   }
 
   .flecha.derecha {
-    right: 0px;
+    right: -12px;
   }
   .paginacion {
-    bottom: 2px; /* un poco más arriba si el contenido toca el borde */
+    bottom: 0px; /* un poco más arriba si el contenido toca el borde */
     right: 10px; /* más cerca del borde en pantallas pequeñas */
     font-size: 0.85rem;
     padding: 4px 8px;

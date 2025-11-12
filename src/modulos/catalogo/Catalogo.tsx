@@ -16,11 +16,12 @@ function Catalogo() {
         </div>
         <div className="row menu-container">
           <div className="bloque-2 col-12 col-sm-2 ">
-            <button className="menu-boton">Poleras</button>
+            <button className="menu-boton boton-poleras">Poleras</button>
             <button className="menu-boton boton-desactivado">Polerones</button>
+            <span></span>
             <button className="menu-boton boton-desactivado">Visor</button>
           </div>
-          <div className="bloque-3 col-12 col-sm-10 ">
+          <div className="bloque-3 col-12 col-sm-7 ">
             <Carrusel />
           </div>
         </div>

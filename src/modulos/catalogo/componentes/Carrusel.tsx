@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import "./Carrusel.css";
 import Elementos from "./Elementos.json";
 
@@ -12,21 +13,20 @@ const productosData: Producto[] = Elementos;
 
 function Carrusel() {
   const [paginaActual, setPaginaActual] = useState(1);
-  const [productosPorPagina, setProductosPorPagina] = useState(6); // 🖥️ por defecto 6
+  const [productosPorPagina, setProductosPorPagina] = useState(6);
+  const [direccion, setDireccion] = useState<"next" | "prev">("next");
 
-  // Detectar tamaño de pantalla
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 768) {
-        setProductosPorPagina(4); // 📱 móvil
+        setProductosPorPagina(4);
       } else {
-        setProductosPorPagina(6); // 🖥️ desktop
+        setProductosPorPagina(6);
       }
     };
 
-    handleResize(); // ejecutar al inicio
+    handleResize();
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -37,11 +37,37 @@ function Carrusel() {
   const productosPagina = productosData.slice(inicio, fin);
 
   const siguiente = () => {
-    if (paginaActual < totalPaginas) setPaginaActual(paginaActual + 1);
+    if (paginaActual < totalPaginas) {
+      setDireccion("next");
+      setPaginaActual(paginaActual + 1);
+    }
   };
 
   const anterior = () => {
-    if (paginaActual > 1) setPaginaActual(paginaActual - 1);
+    if (paginaActual > 1) {
+      setDireccion("prev");
+      setPaginaActual(paginaActual - 1);
+    }
+  };
+
+  const variants = {
+    enter: (direction: "next" | "prev") => ({
+      x: direction === "next" ? 100 : -100,
+      opacity: 0,
+      scale: 0.95,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.4 },
+    },
+    exit: (direction: "next" | "prev") => ({
+      x: direction === "next" ? -100 : 100,
+      opacity: 0,
+      scale: 0.95,
+      transition: { duration: 0.3 },
+    }),
   };
 
   return (
@@ -55,16 +81,33 @@ function Carrusel() {
       ></button>
 
       <div className="carrusel-contenido">
-        {productosPagina.map((producto) => (
-          <button key={producto.id} className="card">
-            <img
-              src={producto.img}
-              alt={`Producto ${producto.id}`}
-              className="card-img"
-            />
-            <h4 className="card-precio">{producto.precio}</h4>
-          </button>
-        ))}
+        <AnimatePresence mode="wait" custom={direccion}>
+          <motion.div
+            key={paginaActual}
+            custom={direccion}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            className="grid-cards"
+          >
+            {productosPagina.map((producto) => (
+              <motion.button
+                key={producto.id}
+                className="card"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <img
+                  src={producto.img}
+                  alt={`Producto ${producto.id}`}
+                  className="card-img"
+                />
+                <h4 className="card-precio">{producto.precio}</h4>
+              </motion.button>
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       <button
