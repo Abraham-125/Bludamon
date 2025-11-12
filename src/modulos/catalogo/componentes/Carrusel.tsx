@@ -130,7 +130,7 @@ function Carrusel() {
                   className="card-img"
                 />
                 <h4 className="card-precio prosto-one-regular">
-                  {producto.precio}
+                  {producto.nombre}
                 </h4>
               </motion.button>
             ))}
@@ -149,15 +149,16 @@ function Carrusel() {
       <div
         className="modal fade"
         id="exampleModal"
-        tabIndex={1}
+        tabIndex={-1}
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog">
+        <div className="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
           <div className="modal-content">
+            {/* 🟠 Encabezado del modal */}
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="exampleModalLabel">
-                Modal title
+                Nombre del producto
               </h1>
               <button
                 type="button"
@@ -166,29 +167,80 @@ function Carrusel() {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">...</div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" className="btn btn-primary">
-                Save changes
-              </button>
+
+            {/* 🟠 Cuerpo principal */}
+            <div className="modal-body">
+              <div className="row align-items-center">
+                {/* 🖼️ Imagen del producto */}
+                <div className="col-12 col-md-6 text-center">
+                  <img
+                    src=".." // imagen del producto
+                    alt="Imagen del producto"
+                    className="img-fluid"
+                  />
+                </div>
+
+                {/* 📝 Detalles del producto */}
+                <div className="col-12 col-md-6">
+                  <p className="descripcion-producto">
+                    Descripción breve de la prenda, materiales o detalles
+                    relevantes.
+                  </p>
+
+                  {/* 🎨 Botones de color */}
+                  <div className="grupo-opciones">
+                    <h6>Color:</h6>
+                    {/* solo una selección posible */}
+                    <div className="d-flex gap-2 flex-wrap">
+                      {/* ejemplo: */}
+                      <button className="btn btn-outline-dark btn-sm active">
+                        Negro
+                      </button>
+                      <button className="btn btn-outline-dark btn-sm">
+                        Blanco
+                      </button>
+                      <button className="btn btn-outline-dark btn-sm">
+                        Azul
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* 📏 Botones de talla */}
+                  <div className="grupo-opciones mt-3">
+                    <h6>Talla:</h6>
+                    {/* selección única */}
+                    <div className="d-flex gap-2 flex-wrap">
+                      <button className="btn btn-outline-secondary btn-sm active">
+                        M
+                      </button>
+                      <button className="btn btn-outline-secondary btn-sm">
+                        L
+                      </button>
+                      <button className="btn btn-outline-secondary btn-sm">
+                        XL
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* 💵 Precio */}
+                  <h4 className="precio-producto mt-4">$19.990</h4>
+
+                  {/* 🛒 Botón principal */}
+                  <button className="btn btn-primary mt-3 w-100">
+                    Agregar al carrito
+                  </button>
+                </div>
+              </div>
             </div>
+
+            <div className="zona-tactil derecha" onClick={siguiente}></div>
+            <div className="zona-tactil izquierda" onClick={anterior}></div>
           </div>
         </div>
       </div>
-
       <div className="paginacion prosto-one-regular">
         {paginaActual} / {totalPaginas}
       </div>
-
-      <div className="zona-tactil derecha" onClick={siguiente}></div>
-      <div className="zona-tactil izquierda" onClick={anterior}></div>
     </div>
   );
 }

@@ -115,7 +115,7 @@ function Catalogo() {
       >
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasRightLabel">
-            Offcanvas right
+            Carrito
           </h5>
           <button
             type="button"

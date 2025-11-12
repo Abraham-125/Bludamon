@@ -112,6 +112,10 @@
   pointer-events: none;
   filter: grayscale(100%) brightness(1.2);
 }
+
+.modal-content {
+  border-radius: 0px !important;
+}
 .paginacion {
   position: absolute;
   bottom: 15px; /* separada del borde inferior */
@@ -121,6 +125,11 @@
   color: #333;
   padding: 6px 10px;
 }
+
+.btn {
+  border-radius: 0px !important;
+}
+
 /* 📱 Responsivo: en pantallas pequeñas, 2 columnas x 3 filas */
 @media (max-width: 768px) {
   .carrusel-contenido {
@@ -226,6 +235,11 @@ body {
     height: 33%;
     z-index: 5;
     background: transparent; /* invisible */
+  }
+  .zona-tactil:focus,
+  .zona-tactil:active {
+    background: transparent !important;
+    outline: none !important;
   }
 
   .zona-tactil.derecha {
