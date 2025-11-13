@@ -89,6 +89,7 @@
 }
 .btn-agregar {
   min-height: 60px !important;
+  font-family: "prosto one", sans-serif !important;
 }
 
 .flecha:active {
@@ -122,6 +123,7 @@
 
 .modal-content {
   border-radius: 0px !important;
+  font-family: "prosto one", sans-serif !important;
 }
 .paginacion {
   position: absolute;
@@ -131,6 +133,19 @@
   font-weight: 500;
   color: #333;
   padding: 6px 10px;
+}
+.popup-confirmacion {
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  bottom: 100px;
+  left: 650px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-family: "porto one", sans-serif !important;
+  background-color: #ff5e00;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 20px;
 }
 
 .btn {
@@ -180,6 +195,11 @@
   }
   .img-producto {
     height: 240px !important;
+  }
+
+  .popup-confirmacion {
+    bottom: 100px;
+    left: 50px;
   }
 
   .card-img {

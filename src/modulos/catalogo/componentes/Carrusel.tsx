@@ -44,6 +44,7 @@ function Carrusel() {
       document.removeEventListener("gesturestart", handleGestureStart);
     };
   }, []);
+  const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
 
   const [paginaActual, setPaginaActual] = useState(1);
   const [productosPorPagina, setProductosPorPagina] = useState(6);
@@ -245,7 +246,13 @@ function Carrusel() {
 
                   {/* Precio y botón */}
                   <h4 className="precio-producto mt-4">$19.990</h4>
-                  <button className="btn btn-primary mt-3 w-100 btn-agregar">
+                  <button
+                    className="btn btn-primary mt-3 w-100 btn-agregar"
+                    onClick={() => {
+                      setMostrarConfirmacion(true);
+                      setTimeout(() => setMostrarConfirmacion(false), 1500);
+                    }}
+                  >
                     Agregar al carrito
                   </button>
                 </div>
@@ -301,6 +308,22 @@ function Carrusel() {
       <div className="paginacion prosto-one-regular">
         {paginaActual} / {totalPaginas}
       </div>
+      {/* ✅ Pop-up de confirmación al agregar al carrito */}
+      <AnimatePresence>
+        {mostrarConfirmacion && (
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="popup-confirmacion"
+            style={{ zIndex: 3000, width: "300px" }}
+          >
+            <h5>¡Producto agregado!</h5>
+            <p>Se añadió al carrito correctamente.</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
