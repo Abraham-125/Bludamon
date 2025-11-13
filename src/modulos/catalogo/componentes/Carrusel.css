@@ -44,7 +44,7 @@
   width: 100%;
 }
 /* Cada card de producto */
-.card {
+.card-catalogo {
   border-radius: 0px !important;
   background-color: #ffffff !important;
   color: rgb(0, 0, 0) !important;
@@ -57,10 +57,10 @@
   transition: scale 0.3s ease, box-shadow 0.2s ease;
 }
 
-.card:hover {
+.card-catalogo:hover {
   box-shadow: 0px 0px 0px 6px rgb(255, 102, 0);
 }
-.card:active {
+.card-catalogo:active {
   scale: 0.8 !important;
 }
 .card-img {
@@ -86,6 +86,9 @@
   z-index: 10;
   scale: 2;
   transition: transform 0.2s ease;
+}
+.btn-agregar {
+  min-height: 60px !important;
 }
 
 .flecha:active {
@@ -158,11 +161,25 @@
   }
 }
 
+.lupa {
+  cursor: pointer;
+  padding: 5px;
+  position: absolute;
+  width: 40px;
+  right: 20px;
+  z-index: 100;
+  filter: invert();
+  background-color: rgb(255, 102, 0);
+}
+
 /* 📱 Extra pequeño (móviles muy chicos) */
 @media (max-width: 480px) {
   .card {
     max-width: 160px;
     min-height: 150px !important;
+  }
+  .img-producto {
+    height: 240px !important;
   }
 
   .card-img {

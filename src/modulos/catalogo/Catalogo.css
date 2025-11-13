@@ -110,3 +110,30 @@ body {
     border-top: 6px solid rgb(255, 115, 0) !important;
   }
 }
+
+.card-carrito {
+  min-width: 100% !important;
+  border-radius: 0px !important;
+  font-family: "prosto one", sans-serif;
+}
+
+.offcanvas-header {
+  font-family: "prosto one", sans-serif;
+}
+
+.carrito-contenedor-superior {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.btn-vaciar {
+  background-color: rgb(255, 123, 0) !important;
+  border: none !important;
+  min-height: 60px;
+  font-family: "prosto one", sans-serif !important;
+}
+.btn-finalizar {
+  border: none !important;
+  min-height: 60px;
+  font-family: "prosto one", sans-serif !important;
+}

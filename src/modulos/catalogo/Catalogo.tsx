@@ -124,7 +124,156 @@ function Catalogo() {
             aria-label="Close"
           ></button>
         </div>
-        <div className="offcanvas-body">...</div>
+        <div className="offcanvas-body">
+          <div className="carrito-contenedor-superior">
+            <div className="card card-carrito mb-3">
+              <div className="row g-0">
+                <div className="col-md-4 col-4 d-flex align-items-center ">
+                  <img
+                    src="https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920"
+                    className="img-fluid rounded-start"
+                  />
+                </div>
+                <div className="col-md-8 col-8">
+                  <div className="card-body ">
+                    <div className="d-flex flex-column justify-content-between  align-items-start">
+                      <h4 className="card-title">Polera #1</h4>
+                      <p className="card-text">Color Negro</p>
+                      <p className="card-text">Talla M</p>
+                    </div>
+
+                    <div className="d-flex flex-column align-items-end">
+                      <h5 className="card-text">$10.000</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="card card-carrito mb-3">
+              <div className="row g-0">
+                <div className="col-md-4 col-4 d-flex align-items-center ">
+                  <img
+                    src="https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920"
+                    className="img-fluid rounded-start"
+                  />
+                </div>
+                <div className="col-md-8 col-8">
+                  <div className="card-body ">
+                    <div className="d-flex flex-column justify-content-between  align-items-start">
+                      <h4 className="card-title">Polera #1</h4>
+                      <p className="card-text">Color: Negro</p>
+                      <p className="card-text">Talla: M</p>
+                    </div>
+
+                    <div className="d-flex flex-column align-items-end">
+                      <h5 className="card-text">$10.000</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="card card-carrito mb-3">
+              <div className="row g-0">
+                <div className="col-md-4 col-4 d-flex align-items-center ">
+                  <img
+                    src="https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920"
+                    className="img-fluid rounded-start"
+                  />
+                </div>
+                <div className="col-md-8 col-8">
+                  <div className="card-body ">
+                    <div className="d-flex flex-column justify-content-between  align-items-start">
+                      <h4 className="card-title">Polera #1</h4>
+                      <p className="card-text">Color: Negro</p>
+                      <p className="card-text">Talla: M</p>
+                    </div>
+
+                    <div className="d-flex flex-column align-items-end">
+                      <h5 className="card-text">$10.000</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="card card-carrito mb-3">
+              <div className="row g-0">
+                <div className="col-md-4 col-4 d-flex align-items-center ">
+                  <img
+                    src="https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920"
+                    className="img-fluid rounded-start"
+                  />
+                </div>
+                <div className="col-md-8 col-8">
+                  <div className="card-body ">
+                    <div className="d-flex flex-column justify-content-between  align-items-start">
+                      <h4 className="card-title">Polera #1</h4>
+                      <p className="card-text">Color: Negro</p>
+                      <p className="card-text">Talla: M</p>
+                    </div>
+
+                    <div className="d-flex flex-column align-items-end">
+                      <h5 className="card-text">$10.000</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="card card-carrito mb-3">
+              <div className="row g-0">
+                <div className="col-md-4 col-4 d-flex align-items-center ">
+                  <img
+                    src="https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920"
+                    className="img-fluid rounded-start"
+                  />
+                </div>
+                <div className="col-md-8 col-8">
+                  <div className="card-body ">
+                    <div className="d-flex flex-column justify-content-between  align-items-start">
+                      <h4 className="card-title">Polera #1</h4>
+                      <p className="card-text">Color: Negro</p>
+                      <p className="card-text">Talla: M</p>
+                    </div>
+
+                    <div className="d-flex flex-column align-items-end">
+                      <h5 className="card-text">$10.000</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="card card-carrito mb-3">
+              <div className="row g-0">
+                <div className="col-md-4 col-4 d-flex align-items-center ">
+                  <img
+                    src="https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920"
+                    className="img-fluid rounded-start"
+                  />
+                </div>
+                <div className="col-md-8 col-8">
+                  <div className="card-body ">
+                    <div className="d-flex flex-column justify-content-between  align-items-start">
+                      <h4 className="card-title">Polera #1</h4>
+                      <p className="card-text">Color: Negro</p>
+                      <p className="card-text">Talla: M</p>
+                    </div>
+
+                    <div className="d-flex flex-column align-items-end">
+                      <h5 className="card-text">$10.000</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="carrito-contenedor-inferior">
+            <button className="btn btn-primary mt-3 w-100 btn-vaciar">
+              VACIAR CARRITO
+            </button>
+            <button className="btn btn-primary mt-3 w-100 btn-finalizar">
+              FINALIZAR COMPRA
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );
