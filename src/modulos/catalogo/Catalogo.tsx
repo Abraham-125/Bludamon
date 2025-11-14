@@ -224,6 +224,7 @@ function CatalogoInner() {
             <button
               className="btn btn-primary mt-2 w-100 btn-finalizar"
               onClick={() => navigate("/pago")}
+              disabled={cart.length === 0} // solo habilitado si hay productos
             >
               FINALIZAR COMPRA
             </button>
