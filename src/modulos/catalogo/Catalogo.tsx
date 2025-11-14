@@ -5,9 +5,13 @@ import Carrusel from "./componentes/Carrusel";
 import { Popover } from "bootstrap";
 import { CartProvider, useCart } from "./componentes/CartContext";
 import CarritoLogo from "../../assets/carrito.png";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function CatalogoInner() {
   // This inner component uses the cart hook to render the offcanvas content
+  const navigate = useNavigate();
+
   const { cart, clearCart, removeFromCart, updateQuantity, getTotal } =
     useCart();
   function buildWhatsAppMessage(cart, total) {
@@ -98,7 +102,9 @@ function CatalogoInner() {
             <button className="menu-boton boton-poleras prosto-one-regular">
               Poleras
             </button>
-
+            <Link to="/pago" className="menu-boton prosto-one-regular">
+              Pago
+            </Link>
             <button
               className="menu-boton boton-desactivado prosto-one-regular"
               type="button"
@@ -217,17 +223,7 @@ function CatalogoInner() {
             </button>
             <button
               className="btn btn-primary mt-2 w-100 btn-finalizar"
-              onClick={() => {
-                const total = getTotal();
-                const message = buildWhatsAppMessage(cart, total);
-
-                // Número de WhatsApp (formato internacional sin +)
-                const phoneNumber = "56957390514";
-
-                // Abrir mensaje directo a WhatsApp
-                const url = `https://wa.me/${phoneNumber}?text=${message}`;
-                window.open(url, "_blank");
-              }}
+              onClick={() => navigate("/pago")}
             >
               FINALIZAR COMPRA
             </button>
@@ -240,9 +236,5 @@ function CatalogoInner() {
 
 export default function Catalogo() {
   // envolver con provider para que todo el catálogo tenga acceso al carrito
-  return (
-    <CartProvider>
-      <CatalogoInner />
-    </CartProvider>
-  );
+  return <CatalogoInner />;
 }

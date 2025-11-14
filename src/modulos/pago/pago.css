@@ -1,0 +1,110 @@
+.pago-container {
+  padding: 30px;
+  background: #1e0a74;
+  min-height: 100vh;
+  color: white;
+}
+
+/* ----------------- STEPPER ------------------ */
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ccc;
+}
+
+.step.active {
+  color: #ffb400;
+}
+
+.step .circle {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #ffb400;
+  color: black;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.line {
+  width: 60px;
+  height: 4px;
+  background: white;
+}
+
+/* ---------------- FORM BOX ------------------ */
+.form-box {
+  background: #2c0bb0;
+  padding: 25px;
+  border-radius: 8px;
+  border: 2px solid #4020d0;
+}
+
+label {
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+input,
+select {
+  margin-bottom: 5px;
+}
+
+.asterisco {
+  color: #ffb400;
+  font-weight: bold;
+}
+
+/* -------------- BOTONES ----------------- */
+.next-btn {
+  background: #ff8800 !important;
+  border: none;
+  color: black;
+  font-weight: bold;
+}
+
+.pago-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.stepper {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.step {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.step.active {
+  background: #007bff;
+  color: white;
+}
+
+.formulario input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+}
