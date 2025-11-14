@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./Carrusel.css";
 import Elementos from "./Elementos.json";
 import iconoLupa from "../../../assets/icono-lupa.png";
+import * as bootstrap from "bootstrap";
 
 interface Producto {
   id: number;
@@ -14,20 +15,51 @@ interface Producto {
 const productosData: Producto[] = Elementos;
 
 function Carrusel() {
+  const modalRef = useRef<HTMLDivElement | null>(null);
+  const modalInstanceRef = useRef<bootstrap.Modal | null>(null);
+
   const [isFirstRender, setIsFirstRender] = useState(true);
-  const [mostrarImagen, setMostrarImagen] = useState(false); // ✅ Para controlar el zoom
-  const [imagenSeleccionada, setImagenSeleccionada] = useState<string>(""); // ✅ Imagen actual
+  const [mostrarImagen, setMostrarImagen] = useState(false);
+  const [imagenSeleccionada, setImagenSeleccionada] = useState<string>("");
+
+  const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
+
+  const [paginaActual, setPaginaActual] = useState(1);
+  const [productosPorPagina, setProductosPorPagina] = useState(6);
+  const [direccion, setDireccion] = useState<"next" | "prev">("next");
+
+  // Crear instancia del modal de Bootstrap solo una vez
+  useEffect(() => {
+    if (modalRef.current) {
+      modalInstanceRef.current = new bootstrap.Modal(modalRef.current, {
+        backdrop: true,
+        keyboard: true,
+      });
+
+      // Eliminar backdrop cuando Bootstrap termine realmente de cerrar
+      modalRef.current.addEventListener("hidden.bs.modal", () => {
+        const backdrop = document.querySelector(".modal-backdrop");
+        if (backdrop) backdrop.remove();
+      });
+    }
+  }, []);
+
+  const abrirModal = () => {
+    modalInstanceRef.current?.show();
+  };
+
+  const cerrarModal = () => {
+    modalInstanceRef.current?.hide();
+  };
 
   useEffect(() => {
     setIsFirstRender(false);
   }, []);
 
   useEffect(() => {
-    // 🚫 Bloquear click derecho
     const handleContextMenu = (e: MouseEvent) => e.preventDefault();
     document.addEventListener("contextmenu", handleContextMenu);
 
-    // 🚫 Bloquear gestos y zoom táctil
     const handleTouchStart = (e: TouchEvent) => {
       if (e.touches.length > 1) e.preventDefault();
     };
@@ -44,11 +76,6 @@ function Carrusel() {
       document.removeEventListener("gesturestart", handleGestureStart);
     };
   }, []);
-  const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
-
-  const [paginaActual, setPaginaActual] = useState(1);
-  const [productosPorPagina, setProductosPorPagina] = useState(6);
-  const [direccion, setDireccion] = useState<"next" | "prev">("next");
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,8 +85,8 @@ function Carrusel() {
         setProductosPorPagina(6);
       }
     };
-
     handleResize();
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -72,14 +99,14 @@ function Carrusel() {
   const siguiente = () => {
     if (paginaActual < totalPaginas) {
       setDireccion("next");
-      setPaginaActual(paginaActual + 1);
+      setPaginaActual((prev) => prev + 1);
     }
   };
 
   const anterior = () => {
     if (paginaActual > 1) {
       setDireccion("prev");
-      setPaginaActual(paginaActual - 1);
+      setPaginaActual((prev) => prev - 1);
     }
   };
 
@@ -103,8 +130,19 @@ function Carrusel() {
     }),
   };
 
+  const agregarCarrito = () => {
+    cerrarModal();
+
+    setMostrarConfirmacion(true);
+
+    setTimeout(() => {
+      setMostrarConfirmacion(false);
+    }, 1400);
+  };
+
   return (
     <div className="carrusel">
+      {/* FLECHA IZQUIERDA */}
       <button
         className={`flecha izquierda ${
           paginaActual === 1 ? "desactivada" : ""
@@ -113,6 +151,7 @@ function Carrusel() {
         disabled={paginaActual === 1}
       ></button>
 
+      {/* GRID */}
       <div className="carrusel-contenido">
         <AnimatePresence mode="wait" custom={direccion}>
           <motion.div
@@ -129,8 +168,7 @@ function Carrusel() {
                 key={producto.id}
                 className="card card-catalogo"
                 type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                onClick={abrirModal}
               >
                 <img
                   src={producto.img}
@@ -146,6 +184,7 @@ function Carrusel() {
         </AnimatePresence>
       </div>
 
+      {/* FLECHA DERECHA */}
       <button
         className={`flecha derecha ${
           paginaActual === totalPaginas ? "desactivada" : ""
@@ -154,17 +193,17 @@ function Carrusel() {
         disabled={paginaActual === totalPaginas}
       ></button>
 
-      {/* 🟠 Modal principal del producto */}
+      {/* MODAL PRODUCTO — CONTROLADO CON BOOTSTRAP */}
       <div
         className="modal fade"
         id="exampleModal"
+        ref={modalRef}
         tabIndex={-1}
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
           <div className="modal-content">
-            {/* Encabezado */}
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="exampleModalLabel">
                 Nombre del producto
@@ -172,15 +211,14 @@ function Carrusel() {
               <button
                 type="button"
                 className="btn-close"
-                data-bs-dismiss="modal"
+                onClick={cerrarModal}
                 aria-label="Close"
               ></button>
             </div>
 
-            {/* Cuerpo del modal */}
             <div className="modal-body">
               <div className="row align-items-center">
-                {/* 🖼️ Imagen del producto */}
+                {/* IMAGEN */}
                 <div className="col-12 col-md-6 text-center position-relative">
                   <button
                     onClick={() => {
@@ -191,11 +229,7 @@ function Carrusel() {
                     }}
                     className="btn btn-light position-absolute top-0 end-0 m-2"
                   >
-                    <img
-                      src={iconoLupa}
-                      className="lupa"
-                      alt="Ampliar imagen"
-                    />
+                    <img src={iconoLupa} className="lupa" alt="Ampliar" />
                   </button>
 
                   <img
@@ -205,14 +239,13 @@ function Carrusel() {
                   />
                 </div>
 
-                {/* 📝 Detalles */}
+                {/* INFO */}
                 <div className="col-12 col-md-6">
                   <p className="descripcion-producto">
                     Descripción breve de la prenda, materiales o detalles
                     relevantes.
                   </p>
 
-                  {/* Colores */}
                   <div className="grupo-opciones">
                     <h6>Color:</h6>
                     <div className="d-flex gap-2 flex-wrap">
@@ -228,7 +261,6 @@ function Carrusel() {
                     </div>
                   </div>
 
-                  {/* Tallas */}
                   <div className="grupo-opciones mt-3">
                     <h6>Talla:</h6>
                     <div className="d-flex gap-2 flex-wrap">
@@ -244,14 +276,11 @@ function Carrusel() {
                     </div>
                   </div>
 
-                  {/* Precio y botón */}
                   <h4 className="precio-producto mt-4">$19.990</h4>
+
                   <button
                     className="btn btn-primary mt-3 w-100 btn-agregar"
-                    onClick={() => {
-                      setMostrarConfirmacion(true);
-                      setTimeout(() => setMostrarConfirmacion(false), 1500);
-                    }}
+                    onClick={agregarCarrito}
                   >
                     Agregar al carrito
                   </button>
@@ -262,7 +291,7 @@ function Carrusel() {
         </div>
       </div>
 
-      {/* 🟢 Modal de imagen fullscreen */}
+      {/* MODAL FULLSCREEN IMAGEN */}
       {mostrarImagen && (
         <div
           className="modal-imagen-fullscreen position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-90 d-flex justify-content-center align-items-center"
@@ -278,7 +307,7 @@ function Carrusel() {
         </div>
       )}
 
-      {/* 🟣 Zonas táctiles para deslizar */}
+      {/* ZONAS TÁCTILES */}
       <div
         className="zona-tactil derecha"
         onTouchStart={() => {
@@ -305,17 +334,19 @@ function Carrusel() {
         }}
       ></div>
 
+      {/* PAGINACIÓN */}
       <div className="paginacion prosto-one-regular">
         {paginaActual} / {totalPaginas}
       </div>
-      {/* ✅ Pop-up de confirmación al agregar al carrito */}
+
+      {/* POP-UP CONFIRMACIÓN */}
       <AnimatePresence>
         {mostrarConfirmacion && (
           <motion.div
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.25 }}
             className="popup-confirmacion"
             style={{ zIndex: 3000, width: "300px" }}
           >
