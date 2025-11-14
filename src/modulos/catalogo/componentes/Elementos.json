@@ -3,7 +3,7 @@
     "id": 1,
     "nombre": "Polera Skull #1",
     "descripcion": "Polera estampada edición Skull #1.",
-    "img": "/polera1.jpg",
+    "img": "/Bludamon/polera1.jpg",
     "precio": "$14.990",
     "colores": ["Negro", "Blanco"],
     "tallas": ["S", "M"]
@@ -12,7 +12,7 @@
     "id": 2,
     "nombre": "Polera Skull #2",
     "descripcion": "Polera estampada edición Skull #2.",
-    "img": "/polera2.jpg",
+    "img": "/Bludamon/polera2.jpg",
     "precio": "$15.990",
     "colores": ["Negro"],
     "tallas": ["M", "L"]
@@ -21,7 +21,7 @@
     "id": 3,
     "nombre": "Polera Fire #1",
     "descripcion": "Polera temática Fire #1.",
-    "img": "/polera3.jpg",
+    "img": "/Bludamon/polera3.jpg",
     "precio": "$13.990",
     "colores": ["Rojo", "Negro"],
     "tallas": ["S", "M", "L"]
@@ -30,7 +30,7 @@
     "id": 4,
     "nombre": "Polera Fire #2",
     "descripcion": "Polera temática Fire #2.",
-    "img": "/polera4.jpg",
+    "img": "/Bludamon/polera4.jpg",
     "precio": "$13.990",
     "colores": ["Negro"],
     "tallas": ["L", "XL"]
@@ -39,7 +39,7 @@
     "id": 5,
     "nombre": "Polera Punk #1",
     "descripcion": "Polera estilo Punk edición #1.",
-    "img": "/polera5.jpg",
+    "img": "/Bludamon/polera5.jpg",
     "precio": "$16.990",
     "colores": ["Blanco"],
     "tallas": ["M", "XL"]
@@ -48,7 +48,7 @@
     "id": 6,
     "nombre": "Polera Punk #2",
     "descripcion": "Polera estilo Punk edición #2.",
-    "img": "/polera6.jpg",
+    "img": "/Bludamon/polera6.jpg",
     "precio": "$16.990",
     "colores": ["Negro", "Gris"],
     "tallas": ["S", "M", "L"]
@@ -57,7 +57,7 @@
     "id": 7,
     "nombre": "Polera Retro #1",
     "descripcion": "Diseño retro colorido.",
-    "img": "/polera7.jpg",
+    "img": "/Bludamon/polera7.jpg",
     "precio": "$12.990",
     "colores": ["Azul", "Negro"],
     "tallas": ["S", "M"]
@@ -66,7 +66,7 @@
     "id": 8,
     "nombre": "Polera Retro #2",
     "descripcion": "Edición retro minimalista.",
-    "img": "/polera8.jpg",
+    "img": "/Bludamon/polera8.jpg",
     "precio": "$12.990",
     "colores": ["Blanco"],
     "tallas": ["L"]
@@ -75,7 +75,7 @@
     "id": 9,
     "nombre": "Polera Dark #1",
     "descripcion": "Edición oscura con calaveras.",
-    "img": "/polera9.jpg",
+    "img": "/Bludamon/polera9.jpg",
     "precio": "$17.990",
     "colores": ["Negro"],
     "tallas": ["M", "L", "XL"]
@@ -84,7 +84,7 @@
     "id": 10,
     "nombre": "Polera Dark #2",
     "descripcion": "Versión oscura minimalista.",
-    "img": "/polera10.jpg",
+    "img": "/Bludamon/polera10.jpg",
     "precio": "$17.990",
     "colores": ["Negro", "Rojo"],
     "tallas": ["S", "M"]
@@ -93,7 +93,7 @@
     "id": 11,
     "nombre": "Polera Steel #1",
     "descripcion": "Diseño metálico brillante.",
-    "img": "/polera11.jpg",
+    "img": "/Bludamon/polera11.jpg",
     "precio": "$18.990",
     "colores": ["Gris"],
     "tallas": ["L", "XL"]
@@ -102,7 +102,7 @@
     "id": 12,
     "nombre": "Polera Steel #2",
     "descripcion": "Edición metálica con detalles.",
-    "img": "/polera12.jpg",
+    "img": "/Bludamon/polera12.jpg",
     "precio": "$18.990",
     "colores": ["Negro", "Gris"],
     "tallas": ["M", "XL"]
@@ -111,7 +111,7 @@
     "id": 13,
     "nombre": "Polera Wave #1",
     "descripcion": "Diseño inspirado en olas.",
-    "img": "/polera13.jpg",
+    "img": "/Bludamon/polera13.jpg",
     "precio": "$11.990",
     "colores": ["Azul"],
     "tallas": ["S", "M", "L"]
@@ -120,7 +120,7 @@
     "id": 14,
     "nombre": "Polera Wave #2",
     "descripcion": "Versión alternativa con líneas fluidas.",
-    "img": "/polera14.jpg",
+    "img": "/Bludamon/polera14.jpg",
     "precio": "$11.990",
     "colores": ["Blanco", "Azul"],
     "tallas": ["M"]
@@ -129,7 +129,7 @@
     "id": 15,
     "nombre": "Polera Raw #1",
     "descripcion": "Diseño crudo y minimalista.",
-    "img": "/polera15.jpg",
+    "img": "/Bludamon/polera15.jpg",
     "precio": "$10.990",
     "colores": ["Negro", "Blanco", "Gris"],
     "tallas": ["S"]
