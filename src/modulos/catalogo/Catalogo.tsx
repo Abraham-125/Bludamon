@@ -1,20 +1,26 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import "./Catalogo.css";
 import logo from "../../assets/logo.png";
 import Carrusel from "./componentes/Carrusel";
 import { Popover } from "bootstrap";
-function Catalogo() {
+import { CartProvider, useCart } from "./componentes/CartContext";
+
+function CatalogoInner() {
+  // This inner component uses the cart hook to render the offcanvas content
+  const { cart, clearCart, removeFromCart, updateQuantity, getTotal } =
+    useCart();
+
   useEffect(() => {
     const handleBackdropCleanup = () => {
       const backdrops = document.querySelectorAll(".offcanvas-backdrop");
       if (backdrops.length > 1) {
-        // deja el último y desvanece los anteriores
+        // keep the last and fade out the previous ones
         for (let i = 0; i < backdrops.length - 1; i++) {
           const backdrop = backdrops[i] as HTMLElement;
           backdrop.style.transition = "opacity 0.3s ease";
           backdrop.style.opacity = "0";
 
-          // elimina el elemento después de que termine la transición
+          // remove after transition
           setTimeout(() => {
             if (backdrop.parentNode) {
               backdrop.remove();
@@ -53,7 +59,7 @@ function Catalogo() {
       <div className="catalogo-container">
         <div className="row navbar-container">
           <div className="bloque-1">
-            <a href="">
+            <a href="#">
               <img src={logo} className="logo" alt="logo bludamon" />
             </a>
 
@@ -64,7 +70,7 @@ function Catalogo() {
               data-bs-target="#offcanvasRight"
               aria-controls="offcanvasRight"
             >
-              Carrito
+              Carrito ({cart.length})
             </button>
           </div>
         </div>
@@ -75,7 +81,6 @@ function Catalogo() {
               Poleras
             </button>
 
-            {/* ✅ Este popover ahora sí funcionará */}
             <button
               className="menu-boton boton-desactivado prosto-one-regular"
               type="button"
@@ -126,150 +131,78 @@ function Catalogo() {
         </div>
         <div className="offcanvas-body">
           <div className="carrito-contenedor-superior">
-            <div className="card card-carrito mb-3">
-              <div className="row g-0">
-                <div className="col-md-4 col-4 d-flex align-items-center ">
-                  <img
-                    src="https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920"
-                    className="img-fluid rounded-start"
-                  />
-                </div>
-                <div className="col-md-8 col-8">
-                  <div className="card-body ">
-                    <div className="d-flex flex-column justify-content-between  align-items-start">
-                      <h4 className="card-title">Polera #1</h4>
-                      <p className="card-text">Color Negro</p>
-                      <p className="card-text">Talla M</p>
-                    </div>
+            {cart.length === 0 && <p>Tu carrito está vacío.</p>}
+            {cart.map((item, idx) => (
+              <div className="card card-carrito mb-3" key={idx}>
+                <div className="row g-0">
+                  <div className="col-md-4 col-4 d-flex align-items-center ">
+                    <img src={item.img} className="img-fluid rounded-start" />
+                  </div>
+                  <div className="col-md-8 col-8">
+                    <div className="card-body ">
+                      <div className="d-flex flex-column justify-content-between  align-items-start">
+                        <h4 className="card-title">{item.nombre}</h4>
+                        <p className="card-text">Color: {item.color ?? "-"}</p>
+                        <p className="card-text">Talla: {item.talla ?? "-"}</p>
+                      </div>
 
-                    <div className="d-flex flex-column align-items-end">
-                      <h5 className="card-text">$10.000</h5>
+                      <div className="d-flex flex-column align-items-end">
+                        <h5 className="card-text">{item.precio}</h5>
+                        <div className="d-flex gap-2 align-items-center mt-2">
+                          <button
+                            className="btn btn-sm btn-outline-secondary"
+                            onClick={() =>
+                              updateQuantity(
+                                idx,
+                                Math.max(1, item.cantidad - 1)
+                              )
+                            }
+                          >
+                            -
+                          </button>
+                          <span>{item.cantidad}</span>
+                          <button
+                            className="btn btn-sm btn-outline-secondary"
+                            onClick={() =>
+                              updateQuantity(idx, item.cantidad + 1)
+                            }
+                          >
+                            +
+                          </button>
+
+                          <button
+                            className="btn btn-sm btn-danger"
+                            onClick={() => removeFromCart(idx)}
+                          >
+                            Eliminar
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="card card-carrito mb-3">
-              <div className="row g-0">
-                <div className="col-md-4 col-4 d-flex align-items-center ">
-                  <img
-                    src="https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920"
-                    className="img-fluid rounded-start"
-                  />
-                </div>
-                <div className="col-md-8 col-8">
-                  <div className="card-body ">
-                    <div className="d-flex flex-column justify-content-between  align-items-start">
-                      <h4 className="card-title">Polera #1</h4>
-                      <p className="card-text">Color: Negro</p>
-                      <p className="card-text">Talla: M</p>
-                    </div>
-
-                    <div className="d-flex flex-column align-items-end">
-                      <h5 className="card-text">$10.000</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="card card-carrito mb-3">
-              <div className="row g-0">
-                <div className="col-md-4 col-4 d-flex align-items-center ">
-                  <img
-                    src="https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920"
-                    className="img-fluid rounded-start"
-                  />
-                </div>
-                <div className="col-md-8 col-8">
-                  <div className="card-body ">
-                    <div className="d-flex flex-column justify-content-between  align-items-start">
-                      <h4 className="card-title">Polera #1</h4>
-                      <p className="card-text">Color: Negro</p>
-                      <p className="card-text">Talla: M</p>
-                    </div>
-
-                    <div className="d-flex flex-column align-items-end">
-                      <h5 className="card-text">$10.000</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="card card-carrito mb-3">
-              <div className="row g-0">
-                <div className="col-md-4 col-4 d-flex align-items-center ">
-                  <img
-                    src="https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920"
-                    className="img-fluid rounded-start"
-                  />
-                </div>
-                <div className="col-md-8 col-8">
-                  <div className="card-body ">
-                    <div className="d-flex flex-column justify-content-between  align-items-start">
-                      <h4 className="card-title">Polera #1</h4>
-                      <p className="card-text">Color: Negro</p>
-                      <p className="card-text">Talla: M</p>
-                    </div>
-
-                    <div className="d-flex flex-column align-items-end">
-                      <h5 className="card-text">$10.000</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="card card-carrito mb-3">
-              <div className="row g-0">
-                <div className="col-md-4 col-4 d-flex align-items-center ">
-                  <img
-                    src="https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920"
-                    className="img-fluid rounded-start"
-                  />
-                </div>
-                <div className="col-md-8 col-8">
-                  <div className="card-body ">
-                    <div className="d-flex flex-column justify-content-between  align-items-start">
-                      <h4 className="card-title">Polera #1</h4>
-                      <p className="card-text">Color: Negro</p>
-                      <p className="card-text">Talla: M</p>
-                    </div>
-
-                    <div className="d-flex flex-column align-items-end">
-                      <h5 className="card-text">$10.000</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="card card-carrito mb-3">
-              <div className="row g-0">
-                <div className="col-md-4 col-4 d-flex align-items-center ">
-                  <img
-                    src="https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920"
-                    className="img-fluid rounded-start"
-                  />
-                </div>
-                <div className="col-md-8 col-8">
-                  <div className="card-body ">
-                    <div className="d-flex flex-column justify-content-between  align-items-start">
-                      <h4 className="card-title">Polera #1</h4>
-                      <p className="card-text">Color: Negro</p>
-                      <p className="card-text">Talla: M</p>
-                    </div>
-
-                    <div className="d-flex flex-column align-items-end">
-                      <h5 className="card-text">$10.000</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
           <div className="carrito-contenedor-inferior">
-            <button className="btn btn-primary mt-3 w-100 btn-vaciar">
+            <div className="mb-2">
+              <strong>Total:</strong> ${getTotal().toLocaleString()}
+            </div>
+            <button
+              className="btn btn-primary mt-2 w-100 btn-vaciar"
+              onClick={() => clearCart()}
+            >
               VACIAR CARRITO
             </button>
-            <button className="btn btn-primary mt-3 w-100 btn-finalizar">
+            <button
+              className="btn btn-primary mt-2 w-100 btn-finalizar"
+              onClick={() => {
+                // Aquí redirigirías o abrirías el módulo de finalizar compra
+                // Por ahora solo dejamos un alert o console para indicar acción
+                // Puedes reemplazar por navegación / abrir otro componente
+                alert("Finalizar compra - aquí conectarás tu formulario.");
+              }}
+            >
               FINALIZAR COMPRA
             </button>
           </div>
@@ -279,4 +212,11 @@ function Catalogo() {
   );
 }
 
-export default Catalogo;
+export default function Catalogo() {
+  // envolver con provider para que todo el catálogo tenga acceso al carrito
+  return (
+    <CartProvider>
+      <CatalogoInner />
+    </CartProvider>
+  );
+}

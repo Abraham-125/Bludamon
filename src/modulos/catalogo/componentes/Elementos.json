@@ -1,98 +1,137 @@
 [
   {
     "id": 1,
-    "nombre": "Polera #1",
-    "img": "https://cabezademartillo.cl/3635-special_default/poleras-estampadas-serigrafia.jpg",
-    "precio": "$10.000"
+    "nombre": "Polera Skull #1",
+    "descripcion": "Polera estampada edición Skull #1.",
+    "img": "/polera1.jpg",
+    "precio": "$14.990",
+    "colores": ["Negro", "Blanco"],
+    "tallas": ["S", "M"]
   },
   {
     "id": 2,
-    "nombre": "Polera #2",
-    "img": "https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920",
-    "precio": "$15.000"
+    "nombre": "Polera Skull #2",
+    "descripcion": "Polera estampada edición Skull #2.",
+    "img": "/polera2.jpg",
+    "precio": "$15.990",
+    "colores": ["Negro"],
+    "tallas": ["M", "L"]
   },
   {
     "id": 3,
-    "nombre": "Polera #3",
-    "img": "https://cycorecords.cl/cdn/shop/files/seri-117c24a4-ba03-4852-adfb-29d77c90b6cc_218688ef-c10e-49db-ba29-c12f2f128d11.jpg?v=1729449869&width=1214",
-    "precio": "$12.000"
+    "nombre": "Polera Fire #1",
+    "descripcion": "Polera temática Fire #1.",
+    "img": "/polera3.jpg",
+    "precio": "$13.990",
+    "colores": ["Rojo", "Negro"],
+    "tallas": ["S", "M", "L"]
   },
   {
     "id": 4,
-    "nombre": "Polera #4",
-    "img": "https://http2.mlstatic.com/D_NQ_NP_610654-MLC83310622251_032025-O.webp",
-    "precio": "$20.000"
+    "nombre": "Polera Fire #2",
+    "descripcion": "Polera temática Fire #2.",
+    "img": "/polera4.jpg",
+    "precio": "$13.990",
+    "colores": ["Negro"],
+    "tallas": ["L", "XL"]
   },
   {
     "id": 5,
-    "nombre": "Polera #5",
-    "img": "https://http2.mlstatic.com/D_NQ_NP_735082-MLC88246712304_072025-O-gustavo-cerati-persiana-americana-polera-serigrafia.webp",
-    "precio": "$18.000"
+    "nombre": "Polera Punk #1",
+    "descripcion": "Polera estilo Punk edición #1.",
+    "img": "/polera5.jpg",
+    "precio": "$16.990",
+    "colores": ["Blanco"],
+    "tallas": ["M", "XL"]
   },
   {
     "id": 6,
-    "nombre": "Polera #6",
-    "img": "https://http2.mlstatic.com/D_NQ_NP_826481-MLC82057699884_022025-O-polera-pink-floyd-dark-side-of-the-moon-serigrafia-doble.webp",
-    "precio": "$22.000"
+    "nombre": "Polera Punk #2",
+    "descripcion": "Polera estilo Punk edición #2.",
+    "img": "/polera6.jpg",
+    "precio": "$16.990",
+    "colores": ["Negro", "Gris"],
+    "tallas": ["S", "M", "L"]
   },
   {
     "id": 7,
-    "nombre": "Polera #7",
-    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
-    "precio": "$25.000"
+    "nombre": "Polera Retro #1",
+    "descripcion": "Diseño retro colorido.",
+    "img": "/polera7.jpg",
+    "precio": "$12.990",
+    "colores": ["Azul", "Negro"],
+    "tallas": ["S", "M"]
   },
   {
     "id": 8,
-    "nombre": "Polera #8",
-    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
-    "precio": "$30.000"
+    "nombre": "Polera Retro #2",
+    "descripcion": "Edición retro minimalista.",
+    "img": "/polera8.jpg",
+    "precio": "$12.990",
+    "colores": ["Blanco"],
+    "tallas": ["L"]
   },
   {
     "id": 9,
-    "nombre": "Polera #9",
-    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
-    "precio": "$35.000"
+    "nombre": "Polera Dark #1",
+    "descripcion": "Edición oscura con calaveras.",
+    "img": "/polera9.jpg",
+    "precio": "$17.990",
+    "colores": ["Negro"],
+    "tallas": ["M", "L", "XL"]
   },
   {
     "id": 10,
-    "nombre": "Polera #10",
-    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
-    "precio": "$40.000"
+    "nombre": "Polera Dark #2",
+    "descripcion": "Versión oscura minimalista.",
+    "img": "/polera10.jpg",
+    "precio": "$17.990",
+    "colores": ["Negro", "Rojo"],
+    "tallas": ["S", "M"]
   },
   {
     "id": 11,
-    "nombre": "Polera #11",
-    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
-    "precio": "$45.000"
+    "nombre": "Polera Steel #1",
+    "descripcion": "Diseño metálico brillante.",
+    "img": "/polera11.jpg",
+    "precio": "$18.990",
+    "colores": ["Gris"],
+    "tallas": ["L", "XL"]
   },
   {
     "id": 12,
-    "nombre": "Polera #12",
-    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
-    "precio": "$50.000"
+    "nombre": "Polera Steel #2",
+    "descripcion": "Edición metálica con detalles.",
+    "img": "/polera12.jpg",
+    "precio": "$18.990",
+    "colores": ["Negro", "Gris"],
+    "tallas": ["M", "XL"]
   },
   {
     "id": 13,
-    "nombre": "Polera #13",
-    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
-    "precio": "$50.000"
+    "nombre": "Polera Wave #1",
+    "descripcion": "Diseño inspirado en olas.",
+    "img": "/polera13.jpg",
+    "precio": "$11.990",
+    "colores": ["Azul"],
+    "tallas": ["S", "M", "L"]
   },
   {
     "id": 14,
-    "nombre": "Polera #14",
-    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
-    "precio": "$50.000"
+    "nombre": "Polera Wave #2",
+    "descripcion": "Versión alternativa con líneas fluidas.",
+    "img": "/polera14.jpg",
+    "precio": "$11.990",
+    "colores": ["Blanco", "Azul"],
+    "tallas": ["M"]
   },
   {
     "id": 15,
-    "nombre": "Polera #15",
-    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
-    "precio": "$50.000"
-  },
-  {
-    "id": 16,
-    "nombre": "Polera #16",
-    "img": "https://fuckthatshitmx.com/cdn/shop/files/1_5_9024017a-c804-40e1-be77-fb4ae60dab5d.png?v=1744073941",
-    "precio": "$50.000"
+    "nombre": "Polera Raw #1",
+    "descripcion": "Diseño crudo y minimalista.",
+    "img": "/polera15.jpg",
+    "precio": "$10.990",
+    "colores": ["Negro", "Blanco", "Gris"],
+    "tallas": ["S"]
   }
 ]

@@ -1,18 +1,14 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./Carrusel.css";
 import Elementos from "./Elementos.json";
 import iconoLupa from "../../../assets/icono-lupa.png";
 import * as bootstrap from "bootstrap";
+import { useCart, type Producto } from "./CartContext";
 
-interface Producto {
-  id: number;
-  img: string;
-  precio: string;
-  nombre: string;
-}
+interface ProductoLocal extends Producto {}
 
-const productosData: Producto[] = Elementos;
+const productosData: ProductoLocal[] = Elementos as ProductoLocal[];
 
 function Carrusel() {
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -28,6 +24,19 @@ function Carrusel() {
   const [productosPorPagina, setProductosPorPagina] = useState(6);
   const [direccion, setDireccion] = useState<"next" | "prev">("next");
 
+  // producto seleccionado para el modal
+  const [selectedProduct, setSelectedProduct] = useState<ProductoLocal | null>(
+    null
+  );
+  const [selectedColor, setSelectedColor] = useState<string | undefined>(
+    undefined
+  );
+  const [selectedTalla, setSelectedTalla] = useState<string | undefined>(
+    undefined
+  );
+
+  const { addToCart } = useCart();
+
   // Crear instancia del modal de Bootstrap solo una vez
   useEffect(() => {
     if (modalRef.current) {
@@ -36,16 +45,27 @@ function Carrusel() {
         keyboard: true,
       });
 
-      // Eliminar backdrop cuando Bootstrap termine realmente de cerrar
+      // Cuando el modal ya quedó escondido, limpiar backdrop y clases
       modalRef.current.addEventListener("hidden.bs.modal", () => {
         const backdrop = document.querySelector(".modal-backdrop");
         if (backdrop) backdrop.remove();
+        // remove modal-open class if left on body
+        document.body.classList.remove("modal-open");
       });
     }
   }, []);
 
-  const abrirModal = () => {
-    modalInstanceRef.current?.show();
+  const abrirModalConProducto = (prod: ProductoLocal) => {
+    setSelectedProduct(prod);
+
+    // Seleccionar el primer color y talla disponible
+    setSelectedColor(prod.colores?.[0]);
+    setSelectedTalla(prod.tallas?.[0]);
+
+    // Asegurar render y luego abrir modal
+    setTimeout(() => {
+      modalInstanceRef.current?.show();
+    }, 0);
   };
 
   const cerrarModal = () => {
@@ -130,19 +150,33 @@ function Carrusel() {
     }),
   };
 
-  const agregarCarrito = () => {
+  const agregarCarritoLocal = () => {
+    if (!selectedProduct) return;
+
+    // crear objeto para añadir al carrito
+    const item = {
+      id: selectedProduct.id,
+      nombre: selectedProduct.nombre,
+      img: selectedProduct.img,
+      precio: selectedProduct.precio,
+      color: selectedColor,
+      talla: selectedTalla,
+    };
+
+    addToCart(item, 1);
+
+    // cerrar modal y mostrar confirmación
     cerrarModal();
 
     setMostrarConfirmacion(true);
-
+    // duration robusta
     setTimeout(() => {
       setMostrarConfirmacion(false);
-    }, 1400);
+    }, 1200);
   };
 
   return (
     <div className="carrusel">
-      {/* FLECHA IZQUIERDA */}
       <button
         className={`flecha izquierda ${
           paginaActual === 1 ? "desactivada" : ""
@@ -151,7 +185,6 @@ function Carrusel() {
         disabled={paginaActual === 1}
       ></button>
 
-      {/* GRID */}
       <div className="carrusel-contenido">
         <AnimatePresence mode="wait" custom={direccion}>
           <motion.div
@@ -168,7 +201,7 @@ function Carrusel() {
                 key={producto.id}
                 className="card card-catalogo"
                 type="button"
-                onClick={abrirModal}
+                onClick={() => abrirModalConProducto(producto)}
               >
                 <img
                   src={producto.img}
@@ -184,7 +217,6 @@ function Carrusel() {
         </AnimatePresence>
       </div>
 
-      {/* FLECHA DERECHA */}
       <button
         className={`flecha derecha ${
           paginaActual === totalPaginas ? "desactivada" : ""
@@ -193,7 +225,7 @@ function Carrusel() {
         disabled={paginaActual === totalPaginas}
       ></button>
 
-      {/* MODAL PRODUCTO — CONTROLADO CON BOOTSTRAP */}
+      {/* MODAL CONTROLADO */}
       <div
         className="modal fade"
         id="exampleModal"
@@ -206,7 +238,7 @@ function Carrusel() {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="exampleModalLabel">
-                Nombre del producto
+                {selectedProduct ? selectedProduct.nombre : "Producto"}
               </h1>
               <button
                 type="button"
@@ -218,14 +250,13 @@ function Carrusel() {
 
             <div className="modal-body">
               <div className="row align-items-center">
-                {/* IMAGEN */}
                 <div className="col-12 col-md-6 text-center position-relative">
                   <button
                     onClick={() => {
-                      setImagenSeleccionada(
-                        "https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920"
-                      );
-                      setMostrarImagen(true);
+                      if (selectedProduct) {
+                        setImagenSeleccionada(selectedProduct.img);
+                        setMostrarImagen(true);
+                      }
                     }}
                     className="btn btn-light position-absolute top-0 end-0 m-2"
                   >
@@ -233,54 +264,60 @@ function Carrusel() {
                   </button>
 
                   <img
-                    src="https://cycorecords.cl/cdn/shop/files/exploited-skull-serigrafia-1ee01a45-a692-4bb4-aef3-639136ad11c8.jpg?v=1743535743&width=1920"
+                    src={selectedProduct ? selectedProduct.img : ""}
                     alt="Imagen del producto"
                     className="img-fluid img-producto"
                   />
                 </div>
 
-                {/* INFO */}
                 <div className="col-12 col-md-6">
                   <p className="descripcion-producto">
-                    Descripción breve de la prenda, materiales o detalles
-                    relevantes.
+                    {selectedProduct
+                      ? `${selectedProduct.descripcion}.`
+                      : "Seleccione un producto."}
                   </p>
 
                   <div className="grupo-opciones">
                     <h6>Color:</h6>
                     <div className="d-flex gap-2 flex-wrap">
-                      <button className="btn btn-outline-dark btn-sm active">
-                        Negro
-                      </button>
-                      <button className="btn btn-outline-dark btn-sm">
-                        Blanco
-                      </button>
-                      <button className="btn btn-outline-dark btn-sm">
-                        Azul
-                      </button>
+                      {selectedProduct?.colores?.map((c) => (
+                        <button
+                          key={c}
+                          className={`btn btn-outline-dark btn-sm ${
+                            selectedColor === c ? "active" : ""
+                          }`}
+                          onClick={() => setSelectedColor(c)}
+                        >
+                          {c}
+                        </button>
+                      ))}
                     </div>
                   </div>
 
                   <div className="grupo-opciones mt-3">
                     <h6>Talla:</h6>
                     <div className="d-flex gap-2 flex-wrap">
-                      <button className="btn btn-outline-secondary btn-sm active">
-                        M
-                      </button>
-                      <button className="btn btn-outline-secondary btn-sm">
-                        L
-                      </button>
-                      <button className="btn btn-outline-secondary btn-sm">
-                        XL
-                      </button>
+                      {selectedProduct?.tallas?.map((t) => (
+                        <button
+                          key={t}
+                          className={`btn btn-outline-secondary btn-sm ${
+                            selectedTalla === t ? "active" : ""
+                          }`}
+                          onClick={() => setSelectedTalla(t)}
+                        >
+                          {t}
+                        </button>
+                      ))}
                     </div>
                   </div>
 
-                  <h4 className="precio-producto mt-4">$19.990</h4>
+                  <h4 className="precio-producto mt-4">
+                    {selectedProduct ? selectedProduct.precio : ""}
+                  </h4>
 
                   <button
                     className="btn btn-primary mt-3 w-100 btn-agregar"
-                    onClick={agregarCarrito}
+                    onClick={agregarCarritoLocal}
                   >
                     Agregar al carrito
                   </button>
@@ -291,7 +328,7 @@ function Carrusel() {
         </div>
       </div>
 
-      {/* MODAL FULLSCREEN IMAGEN */}
+      {/* IMAGEN FULLSCREEN */}
       {mostrarImagen && (
         <div
           className="modal-imagen-fullscreen position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-90 d-flex justify-content-center align-items-center"
