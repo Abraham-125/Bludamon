@@ -3,7 +3,7 @@ import "./Catalogo.css";
 import logo from "../../assets/logo.png";
 import Carrusel from "./componentes/Carrusel";
 import { Popover } from "bootstrap";
-import { CartProvider, useCart } from "./componentes/CartContext";
+import { useCart } from "./componentes/CartContext";
 import CarritoLogo from "../../assets/carrito.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -14,23 +14,6 @@ function CatalogoInner() {
 
   const { cart, clearCart, removeFromCart, updateQuantity, getTotal } =
     useCart();
-  function buildWhatsAppMessage(cart, total) {
-    let message = "🛒 *Nuevo Pedido desde el catálogo*\n\n";
-
-    cart.forEach((item, idx) => {
-      message += `*Producto ${idx + 1}:*\n`;
-      message += `• Nombre: ${item.nombre}\n`;
-      message += `• Color: ${item.color ?? "-"}\n`;
-      message += `• Talla: ${item.talla ?? "-"}\n`;
-      message += `• Precio: ${item.precio}\n`;
-      message += `• Cantidad: ${item.cantidad}\n\n`;
-    });
-
-    message += `----------------------------------\n`;
-    message += `*TOTAL:* $${total.toLocaleString()}\n`;
-
-    return encodeURIComponent(message);
-  }
   useEffect(() => {
     const handleBackdropCleanup = () => {
       const backdrops = document.querySelectorAll(".offcanvas-backdrop");
