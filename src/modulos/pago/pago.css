@@ -175,7 +175,7 @@ label {
   flex-shrink: 0;
 }
 .contenedor-revisar-pedido {
-  max-height: 50vh;
+  max-height: 40vh;
   overflow: auto;
 }
 
@@ -204,9 +204,11 @@ label {
   border-radius: 6px;
   font-weight: 500;
 }
-
 /* ------------------ RESPONSIVE ------------------ */
 @media (max-width: 768px) {
+  .pago-wrapper {
+    height: 90vh;
+  }
   .stepper {
     flex-wrap: nowrap;
     overflow-x: auto;

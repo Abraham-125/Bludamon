@@ -85,9 +85,7 @@ function CatalogoInner() {
             <button className="menu-boton boton-poleras prosto-one-regular">
               Poleras
             </button>
-            <Link to="/pago" className="menu-boton prosto-one-regular">
-              Pago
-            </Link>
+
             <button
               className="menu-boton boton-desactivado prosto-one-regular"
               type="button"

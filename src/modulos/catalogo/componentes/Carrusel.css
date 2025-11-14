@@ -45,7 +45,6 @@
 }
 /* Cada card de producto */
 .card-catalogo {
-  border-radius: 0px !important;
   background-color: #ffffff !important;
   color: rgb(0, 0, 0) !important;
   padding: 12px;
@@ -57,9 +56,6 @@
   transition: scale 0.3s ease, box-shadow 0.2s ease;
 }
 
-.card-catalogo:hover {
-  box-shadow: 0px 0px 0px 6px rgb(255, 102, 0);
-}
 .card-catalogo:active {
   scale: 0.8 !important;
 }
@@ -89,6 +85,7 @@
 }
 .btn-agregar {
   min-height: 60px !important;
+  background-color: rgb(38, 38, 146) !important;
   font-family: "prosto one", sans-serif !important;
 }
 
@@ -142,7 +139,7 @@
   left: 650px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   font-family: "porto one", sans-serif !important;
-  background-color: #ff5e00;
+  background-color: rgb(255, 123, 0);
   transform: translate(-50%, -50%);
   text-align: center;
   padding: 20px;
@@ -183,8 +180,7 @@
   width: 40px;
   right: 20px;
   z-index: 100;
-  filter: invert();
-  background-color: rgb(255, 102, 0);
+  background-color: rgb(0, 102, 255);
 }
 
 /* 📱 Extra pequeño (móviles muy chicos) */

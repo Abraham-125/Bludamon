@@ -14,13 +14,18 @@ const LINEAS = {
 export default function Pago() {
   const navigate = useNavigate();
   const { cart, getTotal, clearCart } = useCart();
-
+  const [showModal, setShowModal] = useState(false);
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(true);
   const [showRedirectMsg, setShowRedirectMsg] = useState(false);
   const [countdown, setCountdown] = useState(7);
   const [shouldStartCountdown, setShouldStartCountdown] = useState(false);
 
+  // Formateador CLP
+  const formatoCLP = new Intl.NumberFormat("es-CL", {
+    style: "currency",
+    currency: "CLP",
+  });
   const [form, setForm] = useState({
     nombre: "",
     apellido: "",
@@ -41,6 +46,9 @@ export default function Pago() {
   };
   const tarifaRetiro =
     form.retiro === "local" ? 0 : tarifas[form.estacion] ?? 0;
+
+  const totalProductos = getTotal();
+  const totalFinal = totalProductos + tarifaRetiro;
 
   // Overlay inicial
   useEffect(() => {
@@ -209,10 +217,116 @@ Total Final: $${totalCompra}
                 onChange={(e) =>
                   setForm({ ...form, terminos: e.target.checked })
                 }
+                className="form-check-input"
+                id="checkbox-terminos"
               />
-              <label>
-                Acepto términos y condiciones <span>*</span>
+              <label className="form-check-label" htmlFor="checkbox-terminos">
+                Acepto{" "}
+                <span
+                  style={{
+                    textDecoration: "underline",
+                    color: "blue",
+                    cursor: "pointer",
+                  }}
+                  data-bs-toggle="modal"
+                  data-bs-target="#terminosModal"
+                >
+                  términos y condiciones
+                </span>{" "}
+                <span>*</span>
               </label>
+            </div>
+
+            {/* Modal Bootstrap */}
+            <div
+              className="modal fade"
+              id="terminosModal"
+              tabIndex={-1}
+              aria-labelledby="terminosModalLabel"
+              aria-hidden="true"
+            >
+              <div className="modal-dialog modal-dialog-scrollable modal-lg">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title" id="terminosModalLabel">
+                      Términos y Condiciones
+                    </h5>
+                    <button
+                      type="button"
+                      className="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Cerrar"
+                    ></button>
+                  </div>
+                  <div className="modal-body">
+                    {/* Texto largo de términos */}
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Dolor quidem saepe maxime. Magnam ea doloribus debitis
+                      illo modi necessitatibus repellendus quaerat unde, fugiat
+                      veritatis repellat eligendi cupiditate similique! Tempora,
+                      pariatur. Doloremque ipsa ut quam porro dolorem veniam,
+                      enim quidem ex aut voluptatibus assumenda magni,
+                      repellendus, rerum totam recusandae laboriosam cum nemo?
+                      Eos rem atque cum incidunt ut, ratione nobis ipsum?
+                      Perferendis soluta sapiente voluptas consectetur nisi
+                      suscipit dolore. Quas asperiores cumque praesentium sed,
+                      voluptas eum, ea alias aperiam, delectus non dolores
+                      facere impedit recusandae ut adipisci dolore? Veniam, nemo
+                      modi! Expedita cupiditate, quas laudantium ut aliquid
+                      voluptatum quis in fugit voluptatem magnam iure. Delectus
+                      quaerat ad nisi aspernatur voluptatum saepe sint harum
+                      eius natus. Repellat nostrum ab culpa officiis illo! Quod
+                      excepturi, magnam autem et, voluptatem magni, ipsa
+                      molestias nisi quos cumque quisquam. Explicabo velit
+                      eveniet nam aperiam tempore alias atque obcaecati, ex
+                      sapiente modi earum reiciendis aspernatur corporis totam?
+                      Nostrum eius perspiciatis nisi quas provident, magnam
+                      autem labore nobis eaque illum suscipit blanditiis ipsum
+                      totam distinctio consectetur et quis similique impedit
+                      maiores rerum amet dolores. Assumenda ullam eum labore!
+                      Illo voluptatem in quisquam provident, facilis sed, velit
+                      rem magni minima ipsum ea, nesciunt molestias. Quibusdam
+                      rem earum veritatis labore necessitatibus eveniet debitis.
+                      At, ut cum aliquam possimus dolor voluptatem? Minima
+                      maxime ipsum ratione rerum voluptates saepe, ex
+                      repudiandae dolor amet ducimus veritatis, error fuga
+                      asperiores, nulla nobis perferendis aliquid sapiente autem
+                      molestias quam illo provident. Rem nihil dicta quod?
+                      Voluptatem quod dolorum eius tenetur eveniet, dolor
+                      incidunt mollitia vitae accusamus, modi ullam repellat
+                      officiis adipisci optio earum dicta nulla iusto molestiae
+                      fuga, consequatur eum. Impedit delectus atque quas vitae.
+                      Quis, molestiae corrupti. Ipsum asperiores quo doloremque
+                      quod harum expedita recusandae similique ipsam, itaque a
+                      labore, in eius sunt tenetur quibusdam architecto
+                      cupiditate alias doloribus vitae quaerat. Saepe, corrupti
+                      beatae? Delectus illo, ducimus voluptate fugit
+                      exercitationem minima iusto eius obcaecati animi
+                      consectetur, inventore sunt possimus est quis consequuntur
+                      numquam repellat accusamus ipsa dolores nam aut.
+                      Praesentium dolores quae ut ex! Doloribus nulla id optio
+                      sed voluptatum dicta doloremque repudiandae, pariatur
+                      minima? Aspernatur, quam reiciendis rem fugiat at,
+                      adipisci eum nulla totam vitae consectetur sit distinctio.
+                    </p>
+                    <p>
+                      Etiam porta sem malesuada magna mollis euismod. Donec sed
+                      odio dui. {/* Más contenido */}
+                    </p>
+                    {/* Sigue con tu texto largo */}
+                  </div>
+                  <div className="modal-footer">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Cerrar
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </>
         )}
@@ -303,9 +417,9 @@ Total Final: $${totalCompra}
               ))}
             </div>
             <hr />
-            <p>Total productos: ${getTotal()}</p>
-            <p>Tarifa retiro: ${tarifaRetiro}</p>
-            <p>Total final: ${getTotal() + tarifaRetiro}</p>
+            <p>Total productos: ${formatoCLP.format(totalProductos)}</p>
+            <p>Tarifa retiro: ${formatoCLP.format(tarifaRetiro)}</p>
+            <p>Total final: ${formatoCLP.format(totalFinal)}</p>
           </>
         )}
 
