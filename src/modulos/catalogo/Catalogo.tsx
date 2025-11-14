@@ -4,12 +4,29 @@ import logo from "../../assets/logo.png";
 import Carrusel from "./componentes/Carrusel";
 import { Popover } from "bootstrap";
 import { CartProvider, useCart } from "./componentes/CartContext";
+import CarritoLogo from "../../assets/carrito.png";
 
 function CatalogoInner() {
   // This inner component uses the cart hook to render the offcanvas content
   const { cart, clearCart, removeFromCart, updateQuantity, getTotal } =
     useCart();
+  function buildWhatsAppMessage(cart, total) {
+    let message = "🛒 *Nuevo Pedido desde el catálogo*\n\n";
 
+    cart.forEach((item, idx) => {
+      message += `*Producto ${idx + 1}:*\n`;
+      message += `• Nombre: ${item.nombre}\n`;
+      message += `• Color: ${item.color ?? "-"}\n`;
+      message += `• Talla: ${item.talla ?? "-"}\n`;
+      message += `• Precio: ${item.precio}\n`;
+      message += `• Cantidad: ${item.cantidad}\n\n`;
+    });
+
+    message += `----------------------------------\n`;
+    message += `*TOTAL:* $${total.toLocaleString()}\n`;
+
+    return encodeURIComponent(message);
+  }
   useEffect(() => {
     const handleBackdropCleanup = () => {
       const backdrops = document.querySelectorAll(".offcanvas-backdrop");
@@ -70,7 +87,8 @@ function CatalogoInner() {
               data-bs-target="#offcanvasRight"
               aria-controls="offcanvasRight"
             >
-              Carrito ({cart.length})
+              <img src={CarritoLogo} className="carrito-logo" alt="" />(
+              {cart.length})
             </button>
           </div>
         </div>
@@ -200,10 +218,15 @@ function CatalogoInner() {
             <button
               className="btn btn-primary mt-2 w-100 btn-finalizar"
               onClick={() => {
-                // Aquí redirigirías o abrirías el módulo de finalizar compra
-                // Por ahora solo dejamos un alert o console para indicar acción
-                // Puedes reemplazar por navegación / abrir otro componente
-                alert("Finalizar compra - aquí conectarás tu formulario.");
+                const total = getTotal();
+                const message = buildWhatsAppMessage(cart, total);
+
+                // Número de WhatsApp (formato internacional sin +)
+                const phoneNumber = "56957390514";
+
+                // Abrir mensaje directo a WhatsApp
+                const url = `https://wa.me/${phoneNumber}?text=${message}`;
+                window.open(url, "_blank");
               }}
             >
               FINALIZAR COMPRA

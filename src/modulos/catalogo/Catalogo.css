@@ -109,6 +109,20 @@ body {
   .boton-poleras {
     border-top: 6px solid rgb(255, 115, 0) !important;
   }
+  .carrito-contenedor-superior {
+    min-height: 55vh !important;
+    max-height: 55vh !important;
+  }
+}
+
+.btn-danger {
+  background-color: rgb(255, 123, 0) !important;
+  border: none !important;
+}
+.carrito-logo {
+  width: 30px;
+  margin-right: 8px;
+  filter: invert();
 }
 .total {
   font-family: "posto one", sans-serif !important;
