@@ -6,9 +6,13 @@ import iconoLupa from "../../../assets/icono-lupa.png";
 import * as bootstrap from "bootstrap";
 import { useCart, type Producto } from "./CartContext";
 
-interface ProductoLocal extends Producto {}
+interface ProductoLocal extends Producto {
+  colores?: string[];
+  tallas?: string[];
+  descripcion?: string[];
+}
 
-const productosData: ProductoLocal[] = Elementos as ProductoLocal[];
+const productosData: ProductoLocal[] = Elementos as unknown as ProductoLocal[];
 
 function Carrusel() {
   const modalRef = useRef<HTMLDivElement | null>(null);

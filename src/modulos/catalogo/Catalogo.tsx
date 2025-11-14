@@ -185,8 +185,11 @@ function CatalogoInner() {
             ))}
           </div>
           <div className="carrito-contenedor-inferior">
-            <div className="mb-2">
-              <strong>Total:</strong> ${getTotal().toLocaleString()}
+            <div className="mb-2 d-flex justify-content-between align-items-center">
+              <h2 className="prosto-one-regular">Total</h2>
+              <h2 className="prosto-one-regular">
+                ${getTotal().toLocaleString()}
+              </h2>
             </div>
             <button
               className="btn btn-primary mt-2 w-100 btn-vaciar"
