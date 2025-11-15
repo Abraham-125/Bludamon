@@ -163,11 +163,17 @@ label {
   border-radius: 4px;
 }
 
+.terminos-text {
+  font-family: "verdana", sans-serif;
+}
+
 .card-info {
   flex: 1;
   font-size: 0.85rem;
 }
-
+.input-group-text {
+  max-height: 46px;
+}
 /* Totales Step 3 */
 .totals-container {
   padding: 0.5rem 1rem;

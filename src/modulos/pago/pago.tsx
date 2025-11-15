@@ -16,9 +16,6 @@ export default function Pago() {
   const { cart, getTotal, clearCart } = useCart();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [showRedirectMsg, setShowRedirectMsg] = useState(false);
-  const [countdown, setCountdown] = useState(7);
-  const [shouldStartCountdown, setShouldStartCountdown] = useState(false);
 
   // Formateador CLP
   const formatoCLP = new Intl.NumberFormat("es-CL", {
@@ -58,27 +55,6 @@ export default function Pago() {
     document.body.style.overflow = "auto";
   }, []);
 
-  useEffect(() => {
-    const handleVisibility = () => {
-      if (document.visibilityState === "visible" && shouldStartCountdown) {
-        setShowRedirectMsg(true);
-        const interval = setInterval(() => {
-          setCountdown((prev) => {
-            if (prev <= 1) {
-              clearInterval(interval);
-              clearCart();
-              navigate("/");
-            }
-            return prev - 1;
-          });
-        }, 1000);
-      }
-    };
-    document.addEventListener("visibilitychange", handleVisibility);
-    return () =>
-      document.removeEventListener("visibilitychange", handleVisibility);
-  }, [shouldStartCountdown]);
-
   const handleChange = (e: any) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -103,10 +79,6 @@ ${form.nombre} ${form.apellido}
 Cel: ${form.celular}
 Correo: ${form.correo}
 
-Alterno:
-${form.alternoNombre || "—"}
-${form.alternoCel || "—"}
-
 Revisar compra:
 ${cart
   .map(
@@ -123,8 +95,11 @@ ${
     ? `Línea: ${form.linea}\nEstación: ${form.estacion}`
     : ""
 }
+Tarifa Retiro: $${tarifaRetiro}
 Total Final: $${totalCompra}
 `;
+    clearCart();
+    navigate("/");
     const url = `https://wa.me/${TU_NUMERO}?text=${encodeURIComponent(
       mensaje
     )}`;
@@ -162,6 +137,7 @@ Total Final: $${totalCompra}
               name="nombre"
               value={form.nombre}
               onChange={handleChange}
+              placeholder="Ej: Francisco"
             />
             <label htmlFor="">
               Primer Apellido <span className="asterisco">*</span>
@@ -171,16 +147,22 @@ Total Final: $${totalCompra}
               name="apellido"
               value={form.apellido}
               onChange={handleChange}
+              placeholder="Ej: Hernandez"
             />
             <label htmlFor="">
               Celular <span className="asterisco">*</span>
             </label>
-            <input
-              type="text"
-              name="celular"
-              value={form.celular}
-              onChange={handleChange}
-            />
+            <div className="input-group">
+              <span className="input-group-text">+56 9</span>
+              <input
+                type="text"
+                name="celular"
+                className="form-control"
+                placeholder="9999 9999"
+                value={form.celular}
+                onChange={handleChange}
+              />
+            </div>
             <label htmlFor="">
               Correo <span className="asterisco">*</span>
             </label>
@@ -189,6 +171,7 @@ Total Final: $${totalCompra}
               name="correo"
               value={form.correo}
               onChange={handleChange}
+              placeholder="Ej: correo@ejemplo.com"
             />
 
             <div className="form-check mt-2">
@@ -242,7 +225,10 @@ Total Final: $${totalCompra}
               <div className="modal-dialog modal-dialog-scrollable modal-lg">
                 <div className="modal-content">
                   <div className="modal-header">
-                    <h5 className="modal-title" id="terminosModalLabel">
+                    <h5
+                      className="modal-title terminos-text"
+                      id="terminosModalLabel"
+                    >
                       Términos y Condiciones
                     </h5>
                     <button
@@ -252,7 +238,7 @@ Total Final: $${totalCompra}
                       aria-label="Cerrar"
                     ></button>
                   </div>
-                  <div className="modal-body">
+                  <div className="modal-body terminos-text">
                     {/* Texto largo de términos */}
                     <p>
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -304,16 +290,11 @@ Total Final: $${totalCompra}
                       minima? Aspernatur, quam reiciendis rem fugiat at,
                       adipisci eum nulla totam vitae consectetur sit distinctio.
                     </p>
-                    <p>
-                      Etiam porta sem malesuada magna mollis euismod. Donec sed
-                      odio dui. {/* Más contenido */}
-                    </p>
-                    {/* Sigue con tu texto largo */}
                   </div>
                   <div className="modal-footer">
                     <button
                       type="button"
-                      className="btn btn-secondary"
+                      className="btn btn-secondary terminos-text"
                       data-bs-dismiss="modal"
                     >
                       Cerrar
