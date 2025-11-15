@@ -3,7 +3,7 @@ import { useCart } from "../catalogo/componentes/CartContext";
 import { useNavigate } from "react-router-dom";
 import "./pago.css";
 
-const LINEAS = {
+const LINEAS: Record<string, string[]> = {
   "Línea 1": ["Los Dominicos", "Manquehue", "Tobalaba", "Baquedano"],
   "Línea 2": ["Vespucio Norte", "Zapadores", "Los Héroes"],
   "Línea 3": ["Los Libertadores", "Plaza Egaña", "Fernando Castillo Velasco"],
@@ -14,7 +14,6 @@ const LINEAS = {
 export default function Pago() {
   const navigate = useNavigate();
   const { cart, getTotal, clearCart } = useCart();
-  const [showModal, setShowModal] = useState(false);
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(true);
   const [showRedirectMsg, setShowRedirectMsg] = useState(false);
@@ -142,7 +141,7 @@ Total Final: $${totalCompra}
       )}
 
       <div className="stepper">
-        {["Contacto", "Retiro", "Resumen", "Enviar"].map((label, i) => (
+        {["Contacto", "Retiro", "Resumen"].map((label, i) => (
           <div key={i} className={`step ${step === i + 1 ? "active" : ""}`}>
             <div className="circle-base">{i + 1}</div>
             {step === i + 1 && <div className="circle-active">{i + 1}</div>}
@@ -155,54 +154,49 @@ Total Final: $${totalCompra}
         {step === 1 && (
           <>
             <h4>Datos de contacto</h4>
+            <label htmlFor="">
+              Primer Nombre <span className="asterisco">*</span>
+            </label>
             <input
               type="text"
               name="nombre"
               value={form.nombre}
               onChange={handleChange}
-              placeholder="Nombre *"
             />
+            <label htmlFor="">
+              Primer Apellido <span className="asterisco">*</span>
+            </label>
             <input
               type="text"
               name="apellido"
               value={form.apellido}
               onChange={handleChange}
-              placeholder="Apellido *"
             />
+            <label htmlFor="">
+              Celular <span className="asterisco">*</span>
+            </label>
             <input
               type="text"
               name="celular"
               value={form.celular}
               onChange={handleChange}
-              placeholder="Celular *"
             />
+            <label htmlFor="">
+              Correo <span className="asterisco">*</span>
+            </label>
             <input
               type="email"
               name="correo"
               value={form.correo}
               onChange={handleChange}
-              placeholder="Correo *"
             />
-            <h5>Destinatario alterno</h5>
-            <input
-              type="text"
-              name="alternoNombre"
-              value={form.alternoNombre}
-              onChange={handleChange}
-              placeholder="Nombre alterno"
-            />
-            <input
-              type="text"
-              name="alternoCel"
-              value={form.alternoCel}
-              onChange={handleChange}
-              placeholder="Celular alterno"
-            />
+
             <div className="form-check mt-2">
               <input
                 type="checkbox"
                 checked={form.newsletter}
                 name="newsletter"
+                className="form-check-input"
                 onChange={(e) =>
                   setForm({ ...form, newsletter: e.target.checked })
                 }
@@ -220,20 +214,20 @@ Total Final: $${totalCompra}
                 className="form-check-input"
                 id="checkbox-terminos"
               />
-              <label className="form-check-label" htmlFor="checkbox-terminos">
+              <label className="form-check-label">
                 Acepto{" "}
                 <span
+                  data-bs-toggle="modal"
+                  data-bs-target="#terminosModal"
                   style={{
                     textDecoration: "underline",
                     color: "blue",
                     cursor: "pointer",
                   }}
-                  data-bs-toggle="modal"
-                  data-bs-target="#terminosModal"
                 >
-                  términos y condiciones
+                  Términos y Condiciones
                 </span>{" "}
-                <span>*</span>
+                <span className="asterisco">*</span>
               </label>
             </div>
 
@@ -417,24 +411,10 @@ Total Final: $${totalCompra}
               ))}
             </div>
             <hr />
-            <p>Total productos: ${formatoCLP.format(totalProductos)}</p>
-            <p>Tarifa retiro: ${formatoCLP.format(tarifaRetiro)}</p>
-            <p>Total final: ${formatoCLP.format(totalFinal)}</p>
+            <p>Total productos: {formatoCLP.format(totalProductos)}</p>
+            <p>Tarifa retiro: {formatoCLP.format(tarifaRetiro)}</p>
+            <p>Total final: {formatoCLP.format(totalFinal)}</p>
           </>
-        )}
-
-        {step === 4 && (
-          <div className="text-center">
-            {showRedirectMsg && (
-              <div className="redirect-msg">
-                Serás redirigido al catálogo en <strong>{countdown}</strong>{" "}
-                segundos...
-              </div>
-            )}
-            <button className="btn btn-success w-100" onClick={enviarWhatsapp}>
-              Enviar pedido por WhatsApp
-            </button>
-          </div>
         )}
       </div>
 
@@ -452,7 +432,11 @@ Total Final: $${totalCompra}
           </button>
         )}
 
-        {step < 4 && (
+        {step === 3 ? (
+          <button className="btn btn-success w-100" onClick={enviarWhatsapp}>
+            Enviar pedido por WhatsApp
+          </button>
+        ) : (
           <button
             className="btn btn-warning"
             onClick={() => (step === 1 ? irStep2() : setStep(step + 1))}

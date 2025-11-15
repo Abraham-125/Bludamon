@@ -11,7 +11,9 @@
   align-items: center;
   z-index: 2000;
 }
-
+.asterisco {
+  color: red;
+}
 .spinner {
   border: 6px solid #f3f3f3;
   border-top: 6px solid #ff9900;

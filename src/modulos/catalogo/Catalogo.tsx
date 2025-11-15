@@ -5,7 +5,6 @@ import Carrusel from "./componentes/Carrusel";
 import { Popover } from "bootstrap";
 import { useCart } from "./componentes/CartContext";
 import CarritoLogo from "../../assets/carrito.png";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function CatalogoInner() {
