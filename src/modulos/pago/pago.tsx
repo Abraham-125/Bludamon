@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useCart } from "../catalogo/componentes/CartContext";
 import { useNavigate } from "react-router-dom";
 import "./pago.css";
+import { Modal } from "bootstrap";
 
 const LINEAS: Record<string, string[]> = {
   "Línea 1": ["Los Dominicos", "Manquehue", "Tobalaba", "Baquedano"],
@@ -35,6 +36,16 @@ export default function Pago() {
     linea: "Línea 5",
     estacion: "Vicente Valdés",
   });
+  const mostrarAlerta = (mensaje: string) => {
+    const mensajeContenedor = document.getElementById("alertModalMensaje");
+    if (mensajeContenedor) mensajeContenedor.innerText = mensaje;
+
+    const modalEl = document.getElementById("alertModal");
+    if (!modalEl) return;
+
+    const modal = new Modal(modalEl); // 👈 SIN window.bootstrap
+    modal.show();
+  };
 
   const tarifas: Record<string, number> = {
     "Vicente Valdés": 1200,
@@ -78,25 +89,27 @@ export default function Pago() {
   };
 
   const irStep2 = () => {
-    if (form.nombre.trim() === "") return alert("Ingresa tu nombre");
-    if (form.apellido.trim() === "") return alert("Ingresa tu apellido");
+    if (form.nombre.trim() === "") return mostrarAlerta("Ingresa tu nombre");
+
+    if (form.apellido.trim() === "")
+      return mostrarAlerta("Ingresa tu apellido");
 
     if (form.celular.trim() === "")
-      return alert("Ingresa tu número de celular");
+      return mostrarAlerta("Ingresa tu número de celular");
 
-    const rawCel = form.celular.replace(/\D/g, ""); // Solo números
+    const rawCel = form.celular.replace(/\D/g, "");
 
     if (rawCel.length !== 8)
-      return alert("El celular debe tener exactamente 8 dígitos");
+      return mostrarAlerta("El celular debe tener exactamente 8 dígitos");
 
     if (form.correo.trim() === "")
-      return alert("Ingresa tu correo electrónico");
+      return mostrarAlerta("Ingresa tu correo electrónico");
 
     if (!/\S+@\S+\.\S+/.test(form.correo))
-      return alert("Ingresa un correo válido");
+      return mostrarAlerta("Ingresa un correo válido");
 
     if (!form.terminos)
-      return alert("Debes aceptar los términos y condiciones");
+      return mostrarAlerta("Debes aceptar los términos y condiciones");
 
     setStep(2);
   };
@@ -117,7 +130,7 @@ Revisar compra:
 ${cart
   .map(
     (item) =>
-      `• ${item.nombre} (${item.cantidad}x) - $${item.precio} ${
+      `• ${item.nombre} (${item.cantidad}x) - ${item.precio} ${
         item.color ? `Color: ${item.color}` : ""
       } ${item.talla ? `Talla: ${item.talla}` : ""}`
   )
@@ -217,7 +230,9 @@ Total Final: $${totalCompra}
                   setForm({ ...form, newsletter: e.target.checked })
                 }
               />
-              <label>Suscribirme a novedades</label>
+              <label>
+                Acepto suscribir mi correo al Newsletter para recibir novedades.
+              </label>
             </div>
             <div className="form-check mt-2">
               <input
@@ -243,7 +258,7 @@ Total Final: $${totalCompra}
                 >
                   Términos y Condiciones
                 </span>{" "}
-                <span className="asterisco">*</span>
+                .<span className="asterisco">*</span>
               </label>
             </div>
 
@@ -432,9 +447,18 @@ Total Final: $${totalCompra}
               ))}
             </div>
             <hr />
-            <p>Total productos: {formatoCLP.format(totalProductos)}</p>
-            <p>Tarifa retiro: {formatoCLP.format(tarifaRetiro)}</p>
-            <p>Total final: {formatoCLP.format(totalFinal)}</p>
+            <div className="d-flex justify-content-start total-compra">
+              <div className="col-9">
+                <h5>Total Productos:</h5>
+                <h5>Tarifa retiro:</h5>
+                <h5>Total Final:</h5>
+              </div>
+              <div className="col-3">
+                <h5>{formatoCLP.format(totalProductos)}</h5>
+                <h5>{formatoCLP.format(tarifaRetiro)}</h5>
+                <h5>{formatoCLP.format(totalFinal)}</h5>
+              </div>
+            </div>
           </>
         )}
       </div>
@@ -465,6 +489,44 @@ Total Final: $${totalCompra}
             Siguiente
           </button>
         )}
+      </div>
+      {/* Modal de alertas personalizado */}
+      <div
+        className="modal fade terminos-text"
+        id="alertModal"
+        tabIndex={-1}
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title terminos-text">Aviso</h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+
+            <div className="modal-body">
+              <p
+                id="alertModalMensaje"
+                className="terminos-text"
+                style={{ fontSize: "1.1rem" }}
+              ></p>
+            </div>
+
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-primary terminos-text"
+                data-bs-dismiss="modal"
+              >
+                Entendido
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

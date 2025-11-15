@@ -128,7 +128,6 @@ select {
 /* Radio y check */
 input[type="radio"],
 input[type="checkbox"] {
-  margin-right: 10px;
 }
 
 label {
@@ -164,7 +163,7 @@ label {
 }
 
 .terminos-text {
-  font-family: "verdana", sans-serif;
+  font-family: "verdana", sans-serif !important;
 }
 
 .card-info {
@@ -175,6 +174,9 @@ label {
   max-height: 46px;
 }
 /* Totales Step 3 */
+.total-compra {
+  margin: auto;
+}
 .totals-container {
   padding: 0.5rem 1rem;
   background: #f8f8f8;
@@ -214,12 +216,18 @@ label {
 }
 /* ------------------ RESPONSIVE ------------------ */
 @media (max-width: 768px) {
+  .total-compra {
+    margin: 0px;
+  }
   .pago-wrapper {
     height: 90vh;
   }
   .stepper {
     flex-wrap: nowrap;
     overflow-x: auto;
+  }
+  .input-group-text {
+    max-height: 43px;
   }
 
   .card-horizontal {
