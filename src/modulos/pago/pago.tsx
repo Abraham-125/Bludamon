@@ -55,15 +55,49 @@ export default function Pago() {
     document.body.style.overflow = "auto";
   }, []);
 
-  const handleChange = (e: any) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
 
-  const irStep2 = () => {
-    const required = [form.nombre, form.apellido, form.celular, form.correo];
-    if (required.some((v) => v.trim() === "") || !form.terminos) {
-      alert("Completa los campos obligatorios (*) y acepta términos");
+    if (name === "celular") {
+      // Quitar caracteres no numéricos
+      let num = value.replace(/\D/g, "");
+
+      // Limitar a 8 números
+      num = num.slice(0, 8);
+
+      // Insertar espacio después de 4 dígitos: 1234 5678
+      if (num.length > 4) {
+        num = num.slice(0, 4) + " " + num.slice(4);
+      }
+
+      setForm({ ...form, celular: num });
       return;
     }
+
+    setForm({ ...form, [name]: value });
+  };
+
+  const irStep2 = () => {
+    if (form.nombre.trim() === "") return alert("Ingresa tu nombre");
+    if (form.apellido.trim() === "") return alert("Ingresa tu apellido");
+
+    if (form.celular.trim() === "")
+      return alert("Ingresa tu número de celular");
+
+    const rawCel = form.celular.replace(/\D/g, ""); // Solo números
+
+    if (rawCel.length !== 8)
+      return alert("El celular debe tener exactamente 8 dígitos");
+
+    if (form.correo.trim() === "")
+      return alert("Ingresa tu correo electrónico");
+
+    if (!/\S+@\S+\.\S+/.test(form.correo))
+      return alert("Ingresa un correo válido");
+
+    if (!form.terminos)
+      return alert("Debes aceptar los términos y condiciones");
+
     setStep(2);
   };
 
@@ -76,7 +110,7 @@ Nuevo Pedido
 
 Cliente:
 ${form.nombre} ${form.apellido}
-Cel: ${form.celular}
+Cel: +56 9 ${form.celular}
 Correo: ${form.correo}
 
 Revisar compra:
@@ -104,7 +138,6 @@ Total Final: $${totalCompra}
       mensaje
     )}`;
     window.open(url, "_blank");
-    setShouldStartCountdown(true);
   };
 
   return (
@@ -309,7 +342,19 @@ Total Final: $${totalCompra}
         {step === 2 && (
           <>
             <h4>Tipo de retiro</h4>
+
+            {/* ✔️ PRIMERO: Retiro en Local */}
             <div className="form-check">
+              <input
+                type="radio"
+                checked={form.retiro === "local"}
+                onChange={() => setForm({ ...form, retiro: "local" })}
+              />
+              <label>Retiro en Local (Costo $0)</label>
+            </div>
+
+            {/* ✔️ SEGUNDO: Retiro en Metro (por defecto seleccionado) */}
+            <div className="form-check mt-2">
               <input
                 type="radio"
                 checked={form.retiro === "metro"}
@@ -317,6 +362,8 @@ Total Final: $${totalCompra}
               />
               <label>Retiro en Metro</label>
             </div>
+
+            {/* Campos que aparecen solo cuando eliges Metro */}
             {form.retiro === "metro" && (
               <>
                 <select
@@ -336,6 +383,7 @@ Total Final: $${totalCompra}
                     </option>
                   ))}
                 </select>
+
                 <select
                   name="estacion"
                   value={form.estacion}
@@ -351,14 +399,6 @@ Total Final: $${totalCompra}
                 </select>
               </>
             )}
-            <div className="form-check">
-              <input
-                type="radio"
-                checked={form.retiro === "local"}
-                onChange={() => setForm({ ...form, retiro: "local" })}
-              />
-              <label>Retiro en Local (Costo $0)</label>
-            </div>
           </>
         )}
 
