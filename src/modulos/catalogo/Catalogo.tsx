@@ -192,7 +192,7 @@ function CatalogoInner() {
             <div className="mb-2 d-flex justify-content-between align-items-center">
               <h2 className="prosto-one-regular">Total</h2>
               <h2 className="prosto-one-regular">
-                ${getTotal().toLocaleString()}
+                ${getTotal().toLocaleString("es-CL")}
               </h2>
             </div>
             <button

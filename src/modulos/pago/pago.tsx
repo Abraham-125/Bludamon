@@ -5,11 +5,80 @@ import "./pago.css";
 import { Modal } from "bootstrap";
 
 const LINEAS: Record<string, string[]> = {
-  "Línea 1": ["Los Dominicos", "Manquehue", "Tobalaba", "Baquedano"],
-  "Línea 2": ["Vespucio Norte", "Zapadores", "Los Héroes"],
-  "Línea 3": ["Los Libertadores", "Plaza Egaña", "Fernando Castillo Velasco"],
-  "Línea 4": ["Tobalaba", "Príncipe de Gales", "Plaza de Maipú"],
-  "Línea 5": ["Plaza de Maipú", "Vicente Valdés", "Bellavista de La Florida"],
+  "Línea 1": [
+    "San Pablo",
+    "Neptuno",
+    "Pajaritos",
+    "Las Rejas",
+    "Ecuador",
+    "San Alberto Hurtado",
+    "U. de Santiago",
+    "Estación Central",
+    "U.L.A",
+    "República",
+    "Los Héroes",
+    "La Moneda",
+    "U. de Chile",
+    "Santa Lucia",
+    "U. Católica",
+    "Baquedano",
+    "Salvador",
+    "Manuel Montt",
+    "Pedro de Valdivia",
+    "Los Leones",
+    "Tobalaba",
+    "El Golf",
+    "Alcántara",
+    "Escuela Militar",
+    "Manquehue",
+    "Hernando de Magallanes",
+    "Los Dominicos",
+  ],
+  "Línea 5": [
+    "Plaza de Maipú",
+    "Santiago Bueras",
+    "Del Sol",
+    "Monte Tabor",
+    "Las Parcelas",
+    "Laguna Sur",
+    "Barrancas",
+    "Pudahuel",
+    "San Pablo",
+    "Lo Prado",
+    "Blanqueado",
+    "Gruta de Lourdes",
+    "Quinta Normal",
+    "Cumming",
+    "Santa Ana",
+    "Plaza de Armas",
+    "Bellas Artes",
+    "Baquedano",
+    "Parque Bustamante",
+    "Santa Isabel",
+    "Irarrázaval",
+    "Ñuble",
+    "Rodrigo de Araya",
+    "Carlos Valdovinos",
+    "Camino Agrícola",
+    "San Joaquín",
+    "Pedrero",
+    "Mirador",
+    "Bellavista de la Florida",
+    "Vicente Valdés",
+  ],
+  "Línea 6": [
+    "Cerrillos",
+    "Lo Valledor",
+    "P.A.C",
+    "Franklin",
+    "Bio Bío",
+    "Ñuble",
+    "Estadio Nacional",
+    "Ñuñoa",
+    "Ines de Suarez",
+    "Los Leones",
+    "Isidora Goyenechea",
+  ],
 };
 
 export default function Pago() {
@@ -17,7 +86,7 @@ export default function Pago() {
   const { cart, getTotal, clearCart } = useCart();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(true);
-
+  const [mapLoading, setMapLoading] = useState(true);
   // Formateador CLP
   const formatoCLP = new Intl.NumberFormat("es-CL", {
     style: "currency",
@@ -34,7 +103,7 @@ export default function Pago() {
     terminos: false,
     retiro: "metro",
     linea: "Línea 5",
-    estacion: "Vicente Valdés",
+    estacion: "Plaza de Maipú",
   });
   const mostrarAlerta = (mensaje: string) => {
     const mensajeContenedor = document.getElementById("alertModalMensaje");
@@ -48,8 +117,70 @@ export default function Pago() {
   };
 
   const tarifas: Record<string, number> = {
-    "Vicente Valdés": 1200,
-    "Plaza de Maipú": 1000,
+    "San Pablo": 3000,
+    Neptuno: 3500,
+    Pajaritos: 3500,
+    "Las Rejas": 4000,
+    Ecuador: 4500,
+    "San Alberto Hurtado": 4500,
+    "U. de Santiago": 5000,
+    "Estación Central": 5500,
+    "U.L.A": 6000,
+    República: 6000,
+    "Los Héroes": 6500,
+    "La Moneda": 7000,
+    "U. de Chile": 7000,
+    "Santa Lucia": 7500,
+    "U. Católica": 8000,
+    Baquedano: 8000,
+    Salvador: 8500,
+    "Manuel Montt": 9000,
+    "Pedro de Valdivia": 9000,
+    "Los Leones": 9500,
+    Tobalaba: 10000,
+    "El Golf": 10500,
+    Alcántara: 10500,
+    "Escuela Militar": 11000,
+    Manquehue: 11500,
+    "Hernando de Magallanes": 11500,
+    "Los Dominicos": 12000,
+    "Plaza de Maipú": 1500,
+    "Santiago Bueras": 1500,
+    "Del Sol": 2000,
+    "Monte Tabor": 2000,
+    "Las Parcelas": 2500,
+    "Laguna Sur": 2500,
+    Barrancas: 3000,
+    Pudahuel: 3000,
+    "Lo Prado": 5500,
+    Blanqueado: 6000,
+    "Gruta de Lourdes": 6000,
+    "Quinta Normal": 6500,
+    Cumming: 7000,
+    "Santa Ana": 7500,
+    "Plaza de Armas": 8000,
+    "Bellas Artes": 8500,
+    "Parque Bustamante": 9500,
+    "Santa Isabel": 9500,
+    Irarrázaval: 10000,
+    Ñuble: 10500,
+    "Rodrigo de Araya": 11000,
+    "Carlos Valdovinos": 11500,
+    "Camino Agrícola": 12000,
+    "San Joaquín": 12500,
+    Pedrero: 12500,
+    Mirador: 13000,
+    "Bellavista de la Florida": 13500,
+    "Vicente Valdés": 14000,
+    Cerrillos: 3000,
+    "Lo Valledor": 4000,
+    "P.A.C": 5000,
+    Franklin: 6000,
+    "Bio Bío": 6500,
+    "Estadio Nacional": 8500,
+    Ñuñoa: 9500,
+    "Ines de Suarez": 10000,
+    "Isidora Goyenechea": 12000,
   };
   const tarifaRetiro =
     form.retiro === "local" ? 0 : tarifas[form.estacion] ?? 0;
@@ -125,6 +256,10 @@ Cliente:
 ${form.nombre} ${form.apellido}
 Cel: +56 9 ${form.celular}
 Correo: ${form.correo}
+Newsletter: ${
+      form.newsletter ? "Sí, desea recibir novedades" : "No desea suscribirse"
+    }
+
 
 Revisar compra:
 ${cart
@@ -174,7 +309,7 @@ Total Final: $${totalCompra}
       <div className="form-box scrollable-body">
         {step === 1 && (
           <>
-            <h4>Datos de contacto</h4>
+            <h4>Datos de Contacto</h4>
             <label htmlFor="">
               Primer Nombre <span className="asterisco">*</span>
             </label>
@@ -288,56 +423,258 @@ Total Final: $${totalCompra}
                   </div>
                   <div className="modal-body terminos-text">
                     {/* Texto largo de términos */}
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Dolor quidem saepe maxime. Magnam ea doloribus debitis
-                      illo modi necessitatibus repellendus quaerat unde, fugiat
-                      veritatis repellat eligendi cupiditate similique! Tempora,
-                      pariatur. Doloremque ipsa ut quam porro dolorem veniam,
-                      enim quidem ex aut voluptatibus assumenda magni,
-                      repellendus, rerum totam recusandae laboriosam cum nemo?
-                      Eos rem atque cum incidunt ut, ratione nobis ipsum?
-                      Perferendis soluta sapiente voluptas consectetur nisi
-                      suscipit dolore. Quas asperiores cumque praesentium sed,
-                      voluptas eum, ea alias aperiam, delectus non dolores
-                      facere impedit recusandae ut adipisci dolore? Veniam, nemo
-                      modi! Expedita cupiditate, quas laudantium ut aliquid
-                      voluptatum quis in fugit voluptatem magnam iure. Delectus
-                      quaerat ad nisi aspernatur voluptatum saepe sint harum
-                      eius natus. Repellat nostrum ab culpa officiis illo! Quod
-                      excepturi, magnam autem et, voluptatem magni, ipsa
-                      molestias nisi quos cumque quisquam. Explicabo velit
-                      eveniet nam aperiam tempore alias atque obcaecati, ex
-                      sapiente modi earum reiciendis aspernatur corporis totam?
-                      Nostrum eius perspiciatis nisi quas provident, magnam
-                      autem labore nobis eaque illum suscipit blanditiis ipsum
-                      totam distinctio consectetur et quis similique impedit
-                      maiores rerum amet dolores. Assumenda ullam eum labore!
-                      Illo voluptatem in quisquam provident, facilis sed, velit
-                      rem magni minima ipsum ea, nesciunt molestias. Quibusdam
-                      rem earum veritatis labore necessitatibus eveniet debitis.
-                      At, ut cum aliquam possimus dolor voluptatem? Minima
-                      maxime ipsum ratione rerum voluptates saepe, ex
-                      repudiandae dolor amet ducimus veritatis, error fuga
-                      asperiores, nulla nobis perferendis aliquid sapiente autem
-                      molestias quam illo provident. Rem nihil dicta quod?
-                      Voluptatem quod dolorum eius tenetur eveniet, dolor
-                      incidunt mollitia vitae accusamus, modi ullam repellat
-                      officiis adipisci optio earum dicta nulla iusto molestiae
-                      fuga, consequatur eum. Impedit delectus atque quas vitae.
-                      Quis, molestiae corrupti. Ipsum asperiores quo doloremque
-                      quod harum expedita recusandae similique ipsam, itaque a
-                      labore, in eius sunt tenetur quibusdam architecto
-                      cupiditate alias doloribus vitae quaerat. Saepe, corrupti
-                      beatae? Delectus illo, ducimus voluptate fugit
-                      exercitationem minima iusto eius obcaecati animi
-                      consectetur, inventore sunt possimus est quis consequuntur
-                      numquam repellat accusamus ipsa dolores nam aut.
-                      Praesentium dolores quae ut ex! Doloribus nulla id optio
-                      sed voluptatum dicta doloremque repudiandae, pariatur
-                      minima? Aspernatur, quam reiciendis rem fugiat at,
-                      adipisci eum nulla totam vitae consectetur sit distinctio.
-                    </p>
+                    <article
+                      className="terminos-tdc"
+                      aria-labelledby="terminos-title"
+                    >
+                      <header>
+                        <h1 id="terminos-title">
+                          Términos y Condiciones – Bludamon
+                        </h1>
+                        <p className="breve">
+                          Documento que regula la compra de poleras
+                          serigrafiadas personalizadas. Al confirmar la compra
+                          aceptas estos términos.
+                        </p>
+                      </header>
+
+                      <section aria-labelledby="info-general">
+                        <h2 id="info-general">1. Información general</h2>
+                        <p>
+                          El presente documento regula los términos y
+                          condiciones aplicables a la compra de productos
+                          ofrecidos por <strong>Bludamon</strong>. Al confirmar
+                          tu compra declaras haber leído y aceptado estos
+                          términos.
+                        </p>
+                      </section>
+
+                      <section aria-labelledby="datos-comprador">
+                        <h2 id="datos-comprador">2. Datos del comprador</h2>
+                        <p>
+                          El cliente debe proporcionar información veraz y
+                          completa:
+                        </p>
+                        <ul>
+                          <li>Nombre y apellido</li>
+                          <li>Número de celular y correo electrónico</li>
+                          <li>Dirección o punto de retiro (opcional)</li>
+                          <li>
+                            Nombre y número de destinatario alterno (si aplica)
+                          </li>
+                        </ul>
+                        <p className="nota">
+                          Bludamon no se responsabiliza por retrasos o entregas
+                          fallidas causadas por datos incorrectos proporcionados
+                          por el comprador.
+                        </p>
+                      </section>
+
+                      <section aria-labelledby="formas-entrega">
+                        <h2 id="formas-entrega">3. Formas de entrega</h2>
+
+                        <article aria-labelledby="retiro-local">
+                          <h3 id="retiro-local">Retiro en local (sin costo)</h3>
+                          <p>
+                            <strong>Dirección:</strong> El Huaso #2189, Maipú.
+                          </p>
+                          <ul>
+                            <li>
+                              Retiro disponible luego de la confirmación del
+                              pago.
+                            </li>
+                            <li>Coordinar previamente día y hora.</li>
+                            <li>
+                              Se recomienda retirar dentro de los 30 días
+                              posteriores al pago.
+                            </li>
+                          </ul>
+                        </article>
+
+                        <article aria-labelledby="retiro-metro">
+                          <h3 id="retiro-metro">Retiro en estación de metro</h3>
+                          <p>
+                            Disponible en distintas estaciones dentro de la
+                            Región Metropolitana. El cliente debe coordinar día,
+                            hora y estación con el equipo de Bludamon.
+                          </p>
+
+                          <h4 id="plazos-coord">Plazos de coordinación</h4>
+                          <ul>
+                            <li>
+                              Desde la confirmación del pago:{" "}
+                              <strong>7 días corridos</strong> para coordinar y
+                              realizar la entrega.
+                            </li>
+                            <li>
+                              Si el cliente no puede asistir, el plazo se
+                              extiende <strong>7 días adicionales</strong>.
+                            </li>
+                            <li>
+                              Si fuera necesario, el compromiso puede renovarse
+                              semana a semana hasta concretar la entrega.
+                            </li>
+                          </ul>
+                        </article>
+                      </section>
+
+                      <section aria-labelledby="tarifas-lineas">
+                        <h2 id="tarifas-lineas">
+                          4. Tarifas por Línea de Metro
+                        </h2>
+
+                        {/* Ejemplo de tabla — puedes repetir la estructura para las demás líneas */}
+
+                        <section aria-labelledby="linea-1">
+                          <h3 id="linea-1">
+                            Línea 1 (San Pablo – Los Dominicos)
+                          </h3>
+                          <table className="tabla-tarifas">
+                            <thead>
+                              <tr>
+                                <th>Tipo</th>
+                                <th>Tarifa</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Estación inicial (San Pablo)</td>
+                                <td>$3.000</td>
+                              </tr>
+                              <tr>
+                                <td>Estación final (Los Dominicos)</td>
+                                <td>$12.000</td>
+                              </tr>
+                              <tr>
+                                <td>Estaciones intermedias</td>
+                                <td>$3.500 – $11.500</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </section>
+                        <section aria-labelledby="linea-5">
+                          <h3 id="linea-5">
+                            Línea 2 (Plaza de Maipú – Vicente Valdés)
+                          </h3>
+                          <table className="tabla-tarifas">
+                            <thead>
+                              <tr>
+                                <th>Tipo</th>
+                                <th>Tarifa</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Estación inicial (Plaza de Maipú)</td>
+                                <td>$1.500</td>
+                              </tr>
+                              <tr>
+                                <td>Estación final (Vicente Valdés)</td>
+                                <td>$14.000</td>
+                              </tr>
+                              <tr>
+                                <td>Estaciones intermedias</td>
+                                <td>$2.000 – $11.500</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </section>
+                        <section aria-labelledby="linea-6">
+                          <h3 id="linea-6">
+                            Línea 6 (Cerrillos – Isidora Goyenechea)
+                          </h3>
+                          <table className="tabla-tarifas">
+                            <thead>
+                              <tr>
+                                <th>Tipo</th>
+                                <th>Tarifa</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Estación inicial (Cerrillos)</td>
+                                <td>$3.000</td>
+                              </tr>
+                              <tr>
+                                <td>Estación final (Isidora Goyenechea)</td>
+                                <td>$12.000</td>
+                              </tr>
+                              <tr>
+                                <td>Estaciones intermedias</td>
+                                <td>$3.500 – $11.500</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </section>
+
+                        {/* Continúan todas las demás líneas igual… */}
+                      </section>
+
+                      <section aria-labelledby="envios-costos">
+                        <h2 id="envios-costos">5. Envíos y costos</h2>
+                        <p>
+                          El costo de envío o retiro se suma al total de la
+                          compra y debe pagarse junto con el pedido. Los tiempos
+                          de entrega pueden variar según disponibilidad y
+                          ubicación.
+                        </p>
+                      </section>
+
+                      <section aria-labelledby="pagos">
+                        <h2 id="pagos">6. Pagos</h2>
+                        <p>
+                          Los pagos se realizan mediante los medios habilitados
+                          por Bludamon (transferencia, débito o crédito).
+                        </p>
+                        <p>
+                          El pedido se procesa una vez confirmado el pago total.
+                          No se realizan entregas con pago pendiente o parcial.
+                        </p>
+                      </section>
+
+                      <section aria-labelledby="cambios">
+                        <h2 id="cambios">7. Cambios y devoluciones</h2>
+                        <p>
+                          Debido a que las poleras se confeccionan por pedido y
+                          con serigrafía personalizada, no se aceptan cambios
+                          por talla, color o diseño. Solo se gestionarán cambios
+                          por defectos atribuibles a Bludamon dentro de los{" "}
+                          <strong>7 días hábiles</strong> posteriores a la
+                          entrega.
+                        </p>
+                      </section>
+
+                      <section aria-labelledby="propiedad">
+                        <h2 id="propiedad">8. Propiedad intelectual</h2>
+                        <p>
+                          Los diseños, logotipos y elementos gráficos utilizados
+                          por Bludamon son propiedad de la marca o de sus
+                          autores. No está permitido reproducirlos sin
+                          autorización.
+                        </p>
+                      </section>
+
+                      <section aria-labelledby="comunicacion">
+                        <h2 id="comunicacion">9. Comunicación y noticias</h2>
+                        <p>
+                          El cliente puede optar por recibir novedades marcando
+                          la casilla correspondiente durante la compra. Puede
+                          darse de baja escribiendo a:{" "}
+                          <a href="mailto:bludamonserigrafia@gmail.com">
+                            bludamonserigrafia@gmail.com
+                          </a>
+                        </p>
+                      </section>
+
+                      <footer aria-labelledby="aceptacion">
+                        <h2 id="aceptacion">10. Aceptación</h2>
+                        <p>
+                          Al marcar la casilla “Acepto los términos y
+                          condiciones” confirmas haber leído y aceptado estas
+                          condiciones.
+                        </p>
+                      </footer>
+                    </article>
                   </div>
                   <div className="modal-footer">
                     <button
@@ -356,41 +693,45 @@ Total Final: $${totalCompra}
 
         {step === 2 && (
           <>
-            <h4>Tipo de retiro</h4>
+            <h4>Tipo de Retiro</h4>
 
-            {/* ✔️ PRIMERO: Retiro en Local */}
+            {/* ✔️ Retiro en Local */}
             <div className="form-check">
               <input
                 type="radio"
                 checked={form.retiro === "local"}
                 onChange={() => setForm({ ...form, retiro: "local" })}
               />
-              <label>Retiro en Local (Costo $0)</label>
+              <label style={{ marginLeft: 10 }}>
+                Retiro en Local (Costo $0)
+              </label>
             </div>
 
-            {/* ✔️ SEGUNDO: Retiro en Metro (por defecto seleccionado) */}
+            {/* ✔️ Retiro en Metro */}
             <div className="form-check mt-2">
               <input
                 type="radio"
                 checked={form.retiro === "metro"}
                 onChange={() => setForm({ ...form, retiro: "metro" })}
               />
-              <label>Retiro en Metro</label>
+              <label style={{ marginLeft: 10 }}>Retiro en Metro</label>
             </div>
 
-            {/* Campos que aparecen solo cuando eliges Metro */}
+            {/* ✔️ MOSTRAR SOLO SI ES METRO */}
             {form.retiro === "metro" && (
               <>
+                {/* SELECT DE LINEA */}
                 <select
                   name="linea"
                   value={form.linea}
-                  onChange={(e) => {
+                  onChange={(e) =>
                     setForm({
                       ...form,
                       linea: e.target.value,
-                      estacion: LINEAS[e.target.value][0],
-                    });
-                  }}
+                      estacion: LINEAS[e.target.value][0], // primera estación de esa línea
+                    })
+                  }
+                  className="form-select mt-3"
                 >
                   {Object.keys(LINEAS).map((l) => (
                     <option key={l} value={l}>
@@ -399,12 +740,14 @@ Total Final: $${totalCompra}
                   ))}
                 </select>
 
+                {/* SELECT DE ESTACIÓN */}
                 <select
                   name="estacion"
                   value={form.estacion}
                   onChange={(e) =>
                     setForm({ ...form, estacion: e.target.value })
                   }
+                  className="form-select mt-2"
                 >
                   {LINEAS[form.linea].map((est) => (
                     <option key={est} value={est}>
@@ -412,36 +755,80 @@ Total Final: $${totalCompra}
                     </option>
                   ))}
                 </select>
+
+                {/* ✔️ TARIFA DINÁMICA */}
+                <div className="tarifa-box mt-3">
+                  <strong>💰 Tarifa Retiro: </strong>
+                  {formatoCLP.format(tarifas[form.estacion] ?? 0)}
+                </div>
+                <div className="mejores-tarifas-box mt-3">
+                  <h6 className="mb-2">💡 Tarifas más convenientes</h6>
+
+                  <ul className="lista-tarifas">
+                    <li>
+                      🔵 Línea 1 – San Pablo: <strong>$3.000</strong>
+                    </li>
+                    <li>
+                      🟢 Línea 5 – Plaza Maipú: <strong>$1.500</strong>
+                    </li>
+                    <li>
+                      🟣 Línea 6 – Cerrillos: <strong>$3.000</strong>
+                    </li>
+                  </ul>
+                </div>
               </>
+            )}
+
+            {/* ✔️ MOSTRAR MAPA SOLO SI ES RETIRO EN LOCAL */}
+            {form.retiro === "local" && (
+              <div className="mapa-box mt-3" style={{ position: "relative" }}>
+                {/* Spinner sobre el mapa mientras carga */}
+                {mapLoading && (
+                  <div className="spinner-mapa-container">
+                    <div className="spinner-mapa"></div>
+                    <p className="text-center mt-2">Cargando mapa...</p>
+                  </div>
+                )}
+
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3326.5006000169083!2d-70.79077832415828!3d-33.5143680007886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662dd4a7885feed%3A0xfc8f4052d8fea28b!2sEl%20Huaso%202189%2C%20Maip%C3%BA%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses-419!2scl!4v1763253857201!5m2!1ses-419!2scl"
+                  width="100%"
+                  height="350"
+                  style={{ border: 0, borderRadius: "10px" }}
+                  allowFullScreen={true}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  onLoad={() => setMapLoading(false)} // ✔️ Al terminar de cargar
+                ></iframe>
+              </div>
             )}
           </>
         )}
 
         {step === 3 && (
           <>
-            <h4>Revisar compra</h4>
+            <h4>Revisar Compra</h4>
             <div className="contenedor-revisar-pedido">
               {cart.map((item, i) => (
-                <div className="card card-carrito card-pedido mb-3" key={i}>
-                  <div className="row g-0">
-                    <div className="col-md-4 col-4 d-flex align-items-center ">
-                      <img src={item.img} className="img-fluid rounded-start" />
+                <div className="card-pedido-resp" key={i}>
+                  <div className="pedido-row">
+                    {/* Imagen */}
+                    <div className="pedido-img-box">
+                      <img src={item.img} alt={item.nombre} />
                     </div>
-                    <div className="col-md-8 col-8">
-                      <div className="card-body ">
-                        <div className="d-flex flex-column justify-content-between  align-items-start">
-                          <p className="card-title">{item.nombre}</p>
-                          <p className="card-text">
-                            Color: {item.color ?? "-"}
-                          </p>
-                          <p className="card-text">
-                            Talla: {item.talla ?? "-"}
-                          </p>
-                          <p className="card-text">Cantidad: {item.cantidad}</p>
-                          <p className="card-text">{item.precio}</p>
-                        </div>
+
+                    {/* Texto */}
+                    <div className="pedido-info">
+                      <p className="pedido-nombre">{item.nombre}</p>
+
+                      <div className="pedido-detalles">
+                        <span>Color: {item.color ?? "-"}</span>
+                        <span>Talla: {item.talla ?? "-"}</span>
+                        <span>Cantidad: {item.cantidad}</span>
                       </div>
                     </div>
+
+                    <div className="pedido-precio">{item.precio}</div>
                   </div>
                 </div>
               ))}
@@ -450,7 +837,7 @@ Total Final: $${totalCompra}
             <div className="d-flex justify-content-start total-compra">
               <div className="col-9">
                 <h5>Total Productos:</h5>
-                <h5>Tarifa retiro:</h5>
+                <h5>Tarifa Retiro:</h5>
                 <h5>Total Final:</h5>
               </div>
               <div className="col-3">
@@ -458,6 +845,15 @@ Total Final: $${totalCompra}
                 <h5>{formatoCLP.format(tarifaRetiro)}</h5>
                 <h5>{formatoCLP.format(totalFinal)}</h5>
               </div>
+            </div>
+            <div className="mt-3">
+              <button
+                className="btn-info-como-funciona"
+                data-bs-toggle="modal"
+                data-bs-target="#modalComoFunciona"
+              >
+                ¿Cómo funciona esta compra?
+              </button>
             </div>
           </>
         )}
@@ -490,6 +886,62 @@ Total Final: $${totalCompra}
           </button>
         )}
       </div>
+      <div
+        className="modal fade"
+        id="modalComoFunciona"
+        tabIndex={-1}
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-scrolleable modal-lg">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title terminos-text">
+                ¿Cómo funciona esta compra?
+              </h5>
+              <button className="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div className="modal-body">
+              <p className="terminos-text">
+                Esta compra se finaliza mediante <strong>WhatsApp</strong>. Al
+                presionar el botón de finalizar compra, se abrirá una
+                conversación directa con nuestro equipo de ventas.
+              </p>
+
+              <p className="terminos-text">
+                En ese chat, tu mensaje será recibido por un vendedor, quien
+                revisará tu pedido y te indicará los datos de pago.
+              </p>
+
+              <p className="terminos-text">
+                Una vez realizado el pago, deberás enviar un
+                <strong> screenshot o comprobante </strong> para validarlo.
+              </p>
+
+              <p className="terminos-text">
+                Tras confirmar tu pago, coordinaremos contigo la entrega de tu
+                prenda, ya sea en el local o en la estación de metro que hayas
+                elegido.
+              </p>
+
+              <div className="alert alert-info mt-3 terminos-text">
+                👍 Nuestro equipo te acompañará en todo el proceso y resolverá
+                cualquier duda.
+              </div>
+            </div>
+
+            <div className="modal-footer">
+              <button
+                className="btn btn-secondary terminos-text"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Modal de alertas personalizado */}
       <div
         className="modal fade terminos-text"

@@ -15,6 +15,33 @@ interface ProductoLocal extends Producto {
 const productosData: ProductoLocal[] = Elementos as unknown as ProductoLocal[];
 
 function Carrusel() {
+  const [isAdding, setIsAdding] = useState(false);
+  const agregarCarritoLocal = () => {
+    if (!selectedProduct || isAdding) return;
+
+    setIsAdding(true); // ⛔ evita múltiples clics
+
+    const item = {
+      id: selectedProduct.id,
+      nombre: selectedProduct.nombre,
+      img: selectedProduct.img,
+      precio: selectedProduct.precio,
+      color: selectedColor,
+      talla: selectedTalla,
+    };
+
+    addToCart(item, 1);
+
+    cerrarModal();
+
+    setMostrarConfirmacion(true);
+
+    setTimeout(() => {
+      setMostrarConfirmacion(false);
+      setIsAdding(false); // ✔️ Lo reactivamos cuando terminó todo
+    }, 500);
+  };
+
   const modalRef = useRef<HTMLDivElement | null>(null);
   const modalInstanceRef = useRef<bootstrap.Modal | null>(null);
 
@@ -152,31 +179,6 @@ function Carrusel() {
       scale: 0.95,
       transition: { duration: 0.3 },
     }),
-  };
-
-  const agregarCarritoLocal = () => {
-    if (!selectedProduct) return;
-
-    // crear objeto para añadir al carrito
-    const item = {
-      id: selectedProduct.id,
-      nombre: selectedProduct.nombre,
-      img: selectedProduct.img,
-      precio: selectedProduct.precio,
-      color: selectedColor,
-      talla: selectedTalla,
-    };
-
-    addToCart(item, 1);
-
-    // cerrar modal y mostrar confirmación
-    cerrarModal();
-
-    setMostrarConfirmacion(true);
-    // duration robusta
-    setTimeout(() => {
-      setMostrarConfirmacion(false);
-    }, 1200);
   };
 
   return (
@@ -322,8 +324,9 @@ function Carrusel() {
                   <button
                     className="btn btn-primary mt-3 w-100 btn-agregar"
                     onClick={agregarCarritoLocal}
+                    disabled={isAdding}
                   >
-                    Agregar al carrito
+                    {isAdding ? "Agregando..." : "Agregar al carrito"}
                   </button>
                 </div>
               </div>

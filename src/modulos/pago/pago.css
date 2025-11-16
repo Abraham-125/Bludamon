@@ -125,11 +125,6 @@ select {
   box-sizing: border-box;
 }
 
-/* Radio y check */
-input[type="radio"],
-input[type="checkbox"] {
-}
-
 label {
   font-weight: 500;
   margin-bottom: 5px;
@@ -185,8 +180,122 @@ label {
   flex-shrink: 0;
 }
 .contenedor-revisar-pedido {
-  max-height: 40vh;
+  max-height: 30vh;
   overflow: auto;
+}
+.card-pedido-resp {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 10px;
+  background: white;
+}
+
+/* Layout horizontal REAL */
+.pedido-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  overflow: hidden; /* evita que se desborde el texto */
+}
+
+/* Imagen */
+.pedido-img-box {
+  flex-shrink: 0;
+  width: 55px;
+  height: 55px;
+}
+
+.pedido-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Info general */
+.pedido-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-width: 0; /* evita overflow */
+}
+
+/* Nombre */
+.pedido-nombre {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Detalles */
+.pedido-detalles {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 0.7rem;
+}
+
+.pedido-detalles span {
+  white-space: nowrap;
+}
+
+/* Precio */
+.pedido-precio {
+  font-weight: bold;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+/* ----------- 📱 MÓVIL ----------- */
+@media (max-width: 576px) {
+  .pedido-row {
+    gap: 8px;
+  }
+
+  .pedido-img-box {
+    width: 48px;
+    height: 48px;
+  }
+
+  .pedido-precio {
+    font-size: 0.8rem;
+  }
+}
+.spinner-mapa-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border-radius: 10px;
+}
+
+.spinner-mapa {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #ccc;
+  border-top-color: #007bff;
+  border-radius: 50%;
+  animation: map-spin 0.8s linear infinite;
+}
+
+@keyframes map-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ------------------ BUTTONS ------------------ */
@@ -243,4 +352,164 @@ label {
   select {
     font-size: 0.9rem;
   }
+}
+/* Contenedor general */
+.terminos-tdc {
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+  padding-bottom: 1rem;
+}
+
+.terminos-tdc h1,
+.terminos-tdc h2,
+.terminos-tdc h3,
+.terminos-tdc h4 {
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.terminos-tdc h1 {
+  font-size: 1.8rem;
+}
+
+.terminos-tdc h2 {
+  font-size: 1.5rem;
+  border-left: 4px solid #007bff;
+  padding-left: 8px;
+}
+
+.terminos-tdc h3 {
+  font-size: 1.2rem;
+  color: #0056b3;
+}
+
+/* Párrafos */
+.terminos-tdc p {
+  margin-bottom: 0.8rem;
+}
+
+.terminos-tdc .nota {
+  background: #f8f9fa;
+  padding: 10px;
+  border-left: 4px solid #ffc107;
+  border-radius: 4px;
+  margin-top: 0.6rem;
+}
+
+/* Listas */
+.terminos-tdc ul {
+  margin-left: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.terminos-tdc li {
+  margin-bottom: 4px;
+}
+
+/* Tablas */
+.tabla-tarifas {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+
+.tabla-tarifas th {
+  background: #007bff;
+  color: white;
+  padding: 8px;
+  text-align: left;
+}
+
+.tabla-tarifas td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.tabla-tarifas tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.tabla-tarifas tr:hover {
+  background: #eef6ff;
+}
+
+/* Links */
+.terminos-tdc a {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+.terminos-tdc a:hover {
+  text-decoration: underline;
+}
+
+/* Ajustes dentro del modal */
+.modal-body.terminos-text {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+.tarifa-box {
+  background: #fff3cd;
+  border-left: 4px solid #ffca2c;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+.mapa-box iframe {
+  width: 100%;
+  border-radius: 12px;
+}
+.mejores-tarifas-box {
+  background: #e7f5ff;
+  border-left: 4px solid #4dabf7;
+  padding: 12px 14px;
+  border-radius: 8px;
+}
+
+.mejores-tarifas-box h6 {
+  font-weight: 600;
+  color: #0b7285;
+}
+
+.lista-tarifas {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.lista-tarifas li {
+  margin-bottom: 4px;
+  font-size: 0.95rem;
+}
+.btn-info-como-funciona {
+  background-color: #233180;
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 12px 18px;
+  width: 100%;
+  transition: all 0.1s ease;
+}
+
+.btn-info-como-funciona:hover {
+  background-color: #1978b8;
+}
+
+#modalComoFunciona .modal-content {
+  border-radius: 12px;
+  padding: 5px;
+}
+
+#modalComoFunciona p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+#modalComoFunciona .alert {
+  border-radius: 10px;
 }
