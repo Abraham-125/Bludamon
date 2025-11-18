@@ -264,7 +264,7 @@ function Carrusel() {
                         setMostrarImagen(true);
                       }
                     }}
-                    className="btn btn-light position-absolute top-0 end-0 m-2"
+                    className="btn position-absolute top-0 end-0 m-2"
                   >
                     <img src={iconoLupa} className="lupa" alt="Ampliar" />
                   </button>

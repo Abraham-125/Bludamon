@@ -3,7 +3,8 @@
   position: relative;
   display: flex;
   justify-content: center;
-  background-color: #eeeeee;
+  background-color: #0c1223 !important;
+
   overflow: visible;
   z-index: 1;
   margin: auto;
@@ -45,8 +46,8 @@
 }
 /* Cada card de producto */
 .card-catalogo {
-  background-color: #ffffff !important;
-  color: rgb(0, 0, 0) !important;
+  background-color: #0f1868 !important;
+  color: rgb(255, 101, 5) !important;
   padding: 12px;
   text-align: center;
   width: 100%;
@@ -59,6 +60,7 @@
 .card-catalogo:active {
   scale: 0.8 !important;
 }
+
 .card-img {
   border-radius: 0px !important;
   object-fit: contain;
@@ -85,8 +87,9 @@
 }
 .btn-agregar {
   min-height: 60px !important;
-  background-color: rgb(38, 38, 146) !important;
-  font-family: "prosto one", sans-serif !important;
+  border: none !important;
+  background-color: rgb(209, 46, 10) !important;
+  font-family: "MyCustomFont", sans-serif !important;
 }
 
 .flecha:active {
@@ -102,7 +105,8 @@
   left: 20px;
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent;
-  border-right: 20px solid rgb(255, 115, 0);
+  border-right: 20px solid rgb(232, 86, 1) !important;
+  border-radius: 12%;
 }
 
 /* Flecha derecha */
@@ -110,17 +114,28 @@
   right: 20px;
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent;
-  border-left: 20px solid rgb(255, 115, 0);
+  border-left: 20px solid rgb(232, 86, 1) !important;
+  border-radius: 12%;
 }
 .flecha.desactivada {
   cursor: not-allowed;
   pointer-events: none;
   filter: grayscale(100%) brightness(1.2);
 }
+.modal-header {
+  background-color: #0a1067 !important;
 
+  border-bottom: none !important;
+}
+
+.btn-close {
+  filter: invert(100%) !important;
+}
 .modal-content {
+  background-color: #020816 !important;
   border-radius: 0px !important;
-  font-family: "prosto one", sans-serif !important;
+  color: #ffffff !important;
+  font-family: "MyCustomFont", sans-serif !important;
 }
 .paginacion {
   position: absolute;
@@ -138,8 +153,9 @@
   bottom: 100px;
   left: 650px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  font-family: "porto one", sans-serif !important;
-  background-color: rgb(255, 123, 0);
+  font-family: "MyCustomFont", sans-serif !important;
+  background-color: rgb(241, 76, 11) !important;
+
   transform: translate(-50%, -50%);
   text-align: center;
   padding: 20px;
@@ -180,7 +196,7 @@
   width: 40px;
   right: 20px;
   z-index: 100;
-  background-color: rgb(0, 102, 255);
+  background-color: rgb(229, 69, 24);
 }
 
 /* 📱 Extra pequeño (móviles muy chicos) */
